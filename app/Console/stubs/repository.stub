@@ -1,0 +1,15 @@
+<?php
+
+namespace DummyNamespace;
+
+use App\Repositories\Eloquent\BaseRepository;
+use App\Repositories\Interfaces\DummyFullModelClassRepositoryInterface;
+use App\Models\DummyFullModelClass;
+
+class DummyClass extends BaseRepository implements DummyClassInterface
+{
+    public function __construct(DummyModelClass $model)
+    {
+        $this->model = $model;
+    }
+}

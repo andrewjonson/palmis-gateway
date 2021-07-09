@@ -1,0 +1,118 @@
+<?php
+
+namespace DummyNamespace;
+
+use DummyRootNamespaceHttp\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Access\AuthorizationException;
+use App\Repositories\Interfaces\DummyFullModelClassRepositoryInterface;
+use App\Traits\ResponseTrait;
+use App\Http\Resources\DummyFullModelClassResource;
+use App\Http\Requests\DummyFullModelClassRequest;
+
+class DummyClass extends Controller
+{
+    use ResponseTrait;
+
+    public function __construct(DummyModelClassRepositoryInterface $DummyModelVariableRepository)
+    {
+        $this->middleware('permission:DummyModelVariable-read', [
+            'only' => [
+                'index'
+            ]
+        ]);
+        $this->middleware('permission:DummyModelVariable-create', [
+            'only' => [
+                'store'
+            ]
+        ]);
+        $this->middleware('permission:DummyModelVariable-update', [
+            'only' => [
+                'update'
+            ]
+        ]);
+        $this->middleware('permission:DummyModelVariable-delete', [
+            'only' => [
+                'destroy'
+            ]
+        ]);
+
+        $this->DummyModelVariableRepository = $DummyModelVariableRepository;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        $keyword = $request->keyword;
+        $rowsPerPage = $request->rowsPerPage;
+        try {
+            $results = $this->DummyModelVariableRepository->search($keyword, $rowsPerPage);
+            return DummyModelClassResource::collection($results);
+        } catch(\Exception $e) {
+            return $this->failedResponse($e->getMessage(), 500);
+        }
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(DummyModelClassRequest $request)
+    {
+        try {
+            $this->DummyModelVariableRepository->create($request->all());
+            return $this->successResponse(trans('DummyLangFullPath.created'), 201);
+        } catch(\Exception $e) {
+            return $this->failedResponse($e->getMessage(), 500);
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(DummyModelClassRequest $request, $id)
+    {
+        $data = $this->DummyModelVariableRepository->find($id);
+        if (!$data) {
+            throw new AuthorizationException;
+        }
+
+        try {
+            $data->update($request->all());
+            return $this->successResponse(trans('DummyLangFullPath.updated'), 200);
+        } catch(\Exception $e) {
+            return $this->failedResponse($e->getMessage(), 500);
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $data = $this->DummyModelVariableRepository->find($id);
+        if (!$data) {
+            throw new AuthorizationException;
+        }
+
+        try {
+            $data->delete($id);
+            return $this->successResponse(trans('DummyLangFullPath.deleted'), 200);
+        } catch(\Exception $e) {
+            return $this->failedResponse($e->getMessage(), 500);
+        }
+    }
+}

@@ -1,0 +1,7 @@
+<?php
+
+return [
+    'created' => 'DummyModelClass Created Successfully',
+    'updated' => 'DummyModelClass Updated Successfully',
+    'deleted' => 'DummyModelClass Deleted Successfully'
+];
