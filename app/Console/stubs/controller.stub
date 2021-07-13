@@ -5,10 +5,10 @@ namespace DummyNamespace;
 use DummyRootNamespaceHttp\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Access\AuthorizationException;
-use App\Repositories\Interfaces\DummyFullModelClassRepositoryInterface;
+use App\Repositories\Interfaces\DummyAppVersion\DummyFullModelClassRepositoryInterface;
 use App\Traits\ResponseTrait;
-use App\Http\Resources\DummyFullModelClassResource;
-use App\Http\Requests\DummyFullModelClassRequest;
+use App\Http\Resources\DummyAppVersion\DummyFullModelClassResource;
+use App\Http\Requests\DummyAppVersion\DummyFullModelClassRequest;
 
 class DummyClass extends Controller
 {
@@ -53,7 +53,7 @@ class DummyClass extends Controller
             $results = $this->DummyModelVariableRepository->search($keyword, $rowsPerPage);
             return DummyModelClassResource::collection($results);
         } catch(\Exception $e) {
-            return $this->failedResponse($e->getMessage(), 500);
+            return $this->failedResponse($e->getMessage(), SERVER_ERROR);
         }
     }
 
@@ -67,9 +67,9 @@ class DummyClass extends Controller
     {
         try {
             $this->DummyModelVariableRepository->create($request->all());
-            return $this->successResponse(trans('DummyLangFullPath.created'), 201);
+            return $this->successResponse(trans('DummyLangFullPath.created'), DATA_CREATED);
         } catch(\Exception $e) {
-            return $this->failedResponse($e->getMessage(), 500);
+            return $this->failedResponse($e->getMessage(), SERVER_ERROR);
         }
     }
 
@@ -89,9 +89,9 @@ class DummyClass extends Controller
 
         try {
             $data->update($request->all());
-            return $this->successResponse(trans('DummyLangFullPath.updated'), 200);
+            return $this->successResponse(trans('DummyLangFullPath.updated'), DATA_OK);
         } catch(\Exception $e) {
-            return $this->failedResponse($e->getMessage(), 500);
+            return $this->failedResponse($e->getMessage(), SERVER_ERROR);
         }
     }
 
@@ -110,9 +110,9 @@ class DummyClass extends Controller
 
         try {
             $data->delete($id);
-            return $this->successResponse(trans('DummyLangFullPath.deleted'), 200);
+            return $this->successResponse(trans('DummyLangFullPath.deleted'), DATA_OK);
         } catch(\Exception $e) {
-            return $this->failedResponse($e->getMessage(), 500);
+            return $this->failedResponse($e->getMessage(), SERVER_ERROR);
         }
     }
 }

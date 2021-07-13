@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use Illuminate\Support\Str;
 use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Exception\InvalidArgumentException;
 
 class RepositoryMakeCommand extends GeneratorCommand
 {
@@ -48,7 +47,7 @@ class RepositoryMakeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . '\Repositories\Eloquent';
+        return $rootNamespace . '\Repositories\Eloquent\\'.env('APP_VERSION');
     }
 
     /**
@@ -94,6 +93,7 @@ class RepositoryMakeCommand extends GeneratorCommand
         $modelClass = Str::replaceArray('Repository', [''], $modelClass);
 
         return array_merge($replace, [
+            'DummyAppVersion' => env('APP_VERSION'),
             'DummyFullModelClass' => $modelClass,
             'DummyModelClass' => class_basename($modelClass),
             'DummyModelVariable' => lcfirst(class_basename($modelClass)),

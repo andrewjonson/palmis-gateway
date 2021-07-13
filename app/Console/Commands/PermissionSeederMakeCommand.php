@@ -58,7 +58,7 @@ class PermissionSeederMakeCommand extends \Illuminate\Console\GeneratorCommand
     protected function getPath($name)
     {
         $modelClass = Str::replaceArray('App', [''], $this->argument('name'));
-        return $this->laravel->basePath('database').'/seeders/'.$modelClass.'.php';
+        return $this->laravel->basePath('database').'/seeders/'.env('APP_VERSION').'/'.$modelClass.'.php';
     }
 
     /**
@@ -92,6 +92,7 @@ class PermissionSeederMakeCommand extends \Illuminate\Console\GeneratorCommand
         $seeder = Str::replaceArray('\\'.class_basename($name), [''], $name);
 
         return array_merge($replace, [
+            'DummyAppVersion' => env('APP_VERSION'),
             'DummySeederNamespace' => $seeder,
         ]);
     }

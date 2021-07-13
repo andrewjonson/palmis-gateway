@@ -116,7 +116,7 @@ class ControllerMakeCommand extends \Illuminate\Console\GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Http\Controllers';
+        return $rootNamespace.'\Http\Controllers\\'.env('APP_VERSION');
     }
 
     /**
@@ -158,6 +158,7 @@ class ControllerMakeCommand extends \Illuminate\Console\GeneratorCommand
         $langClass = Str::replaceArray('Controller', [''], $langClass);
 
         return array_merge($replace, [
+            'DummyAppVersion' => env('APP_VERSION'),
             'DummyFullModelClass' => $modelClass,
             'DummyModelClass' => class_basename($modelClass),
             'DummyModelVariable' => lcfirst(class_basename($modelClass)),

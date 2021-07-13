@@ -1,6 +1,6 @@
 <?php
 
-namespace database\seeders\DummySeederNamespace;
+namespace database\seeders\DummyAppVersion\DummySeederNamespace;
 
 use Illuminate\Database\Seeder;
 

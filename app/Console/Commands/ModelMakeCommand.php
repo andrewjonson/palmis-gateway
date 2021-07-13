@@ -119,9 +119,7 @@ class ModelMakeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return is_dir($this->laravel->basePath('app/Models'))
-            ? $rootNamespace.'\\Models'
-            : $rootNamespace;
+        return $rootNamespace.'\\Models\\'.env('APP_VERSION');
     }
 
     /**

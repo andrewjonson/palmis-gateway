@@ -61,6 +61,7 @@ $app->singleton(
 
 $app->configure('app');
 
+require_once __DIR__. './constant.php';
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
