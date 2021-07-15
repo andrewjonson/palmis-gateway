@@ -3,13 +3,12 @@
 namespace DummyNamespace;
 
 use Illuminate\Database\Eloquent\Model;
-use Wildside\Userstamps\Userstamps;
+use App\Traits\Userstamps;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
 
-class DummyClass extends Model implements Auditable
+class DummyClass extends Model
 {
-    use \OwenIt\Auditing\Auditable;
     use Userstamps;
     use SoftDeletes;
 

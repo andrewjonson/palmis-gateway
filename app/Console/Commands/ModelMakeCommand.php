@@ -43,7 +43,7 @@ class ModelMakeCommand extends GeneratorCommand
         if ($this->option('all')) {
             $this->createPermissionsSeeder();
             $this->createController();
-            $this->createRepositoryInterface();
+            $this->createRepository();
         }
     }
 
@@ -75,22 +75,16 @@ class ModelMakeCommand extends GeneratorCommand
         $this->call('make:controller', array_filter([
             'name'  => "{$controller}Controller",
             '--full' => $modelName,
-            '--jsonresource' => $modelName,
-            '--formrequest' => $modelName,
-            '--lang' => $modelName
+            '--jsonresource' => $modelName
         ]));
     }
 
-    protected function createRepositoryInterface()
+    protected function createRepository()
     {
         $repository = Str::studly($this->argument('name'));
 
         $this->call('make:repository', array_filter([
             'name'  => "{$repository}Repository"
-        ]));
-
-        $this->call('make:interface', array_filter([
-            'name'  => "{$repository}RepositoryInterface"
         ]));
     }
 

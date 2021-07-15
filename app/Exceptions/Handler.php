@@ -2,12 +2,16 @@
 
 namespace App\Exceptions;
 
+use Throwable;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Validation\UnauthorizedException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Validation\ValidationException;
 use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Throwable;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -17,10 +21,8 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        AuthorizationException::class,
         HttpException::class,
-        ModelNotFoundException::class,
-        ValidationException::class,
+        ModelNotFoundException::class
     ];
 
     /**
@@ -49,6 +51,35 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if ($exception instanceof ValidationException) {
+            return response()->json([
+                'type' => 2,
+                'message' => $exception->errors()
+            ], $exception->status);
+        } elseif ($exception instanceof AuthorizationException ||
+                    $exception instanceof Spatie\Permission\Exceptions\UnauthorizedException
+        ) {
+            return response()->json([
+                'type' => 2,
+                'message' => 'This action is forbidden'
+            ], FORBIDDEN);
+        } elseif ($exception instanceof NotFoundHttpException) {
+            return response()->json([
+                'type' => 2,
+                'message' => 'Page not found'
+            ], HTTP_NOT_FOUND);
+        } elseif ($exception instanceof MethodNotAllowedHttpException) {
+            return response()->json([
+                'type' => 2,
+                'message' => 'Method not allowed'
+            ], METHOD_NOT_ALLOWED);
+        } elseif ($exception instanceof AuthenticationException) {
+            return response()->json([
+                'type' => 2,
+                'message' => 'Unauthenticated'
+            ], UNAUTHORIZED_USER);
+        }
+
         return parent::render($request, $exception);
     }
 }

@@ -15,18 +15,12 @@ class {{ class }} extends Migration
     {
         Schema::create('{{ table }}', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('created_by')
-                    ->nullable()
-                    ->constrained('users')
-                    ->onDelete('cascade');
-            $table->foreignId('updated_by')
-                    ->nullable()
-                    ->constrained('users')
-                    ->onDelete('cascade');
-            $table->foreignId('deleted_by')
-                    ->nullable()
-                    ->constrained('users')
-                    ->onDelete('cascade');
+            $table->bigInteger('created_by')
+                    ->nullable();
+            $table->bigInteger('updated_by')
+                    ->nullable();
+            $table->bigInteger('deleted_by')
+                    ->nullable();
             $table->SoftDeletes();
             $table->timestamps();
         });

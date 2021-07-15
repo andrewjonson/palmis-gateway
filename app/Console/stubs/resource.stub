@@ -15,7 +15,7 @@ class DummyClass extends JsonResource
     public function toArray($request)
     {
         return [
-            
+            'id' => hashid_encode($this->id)
         ];
     }
 }

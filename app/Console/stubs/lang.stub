@@ -3,5 +3,7 @@
 return [
     'created' => 'DummyModelClass Created Successfully',
     'updated' => 'DummyModelClass Updated Successfully',
-    'deleted' => 'DummyModelClass Deleted Successfully'
+    'deleted' => 'DummyModelClass Deleted Successfully',
+    'restored' => 'DummyModelClass Restored Successfully',
+    'force_deleted' => 'DummyModelClass Permanently Deleted Successfully'
 ];

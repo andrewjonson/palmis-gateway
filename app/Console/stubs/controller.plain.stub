@@ -2,10 +2,9 @@
 
 namespace DummyNamespace;
 
-use Illuminate\Http\Request;
-use DummyRootNamespaceHttp\Controllers\Controller;
+use Laravel\Lumen\Routing\Controller as BaseController;
 
-class DummyClass extends Controller
+class DummyClass extends BaseController
 {
     //
 }

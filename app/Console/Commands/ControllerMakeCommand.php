@@ -46,14 +46,6 @@ class ControllerMakeCommand extends \Illuminate\Console\GeneratorCommand
             $this->createJsonResource();
         }
 
-        if ($this->option('formrequest')) {
-            $this->createFormRequest();
-        }
-
-        if ($this->option('lang')) {
-            $this->createLang();
-        }
-
         $stub = isset($stub) ? $stub : '../../stubs/controller.plain.stub';
 
         return __DIR__.$stub;
@@ -199,8 +191,6 @@ class ControllerMakeCommand extends \Illuminate\Console\GeneratorCommand
         return [
             ['full', null, InputOption::VALUE_NONE, 'Generate a full controller class.'],
             ['jsonresource', null, InputOption::VALUE_NONE, 'Generate a json resource class.'],
-            ['formrequest', null, InputOption::VALUE_NONE, 'Generate a form request class.'],
-            ['lang', null, InputOption::VALUE_NONE, 'Generate a language file.'],
         ];
     }
 }

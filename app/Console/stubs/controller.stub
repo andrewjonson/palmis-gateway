@@ -3,22 +3,25 @@
 namespace DummyNamespace;
 
 use DummyRootNamespaceHttp\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Auth\Access\AuthorizationException;
-use App\Repositories\Interfaces\DummyAppVersion\DummyFullModelClassRepositoryInterface;
-use App\Traits\ResponseTrait;
+use App\Repositories\Eloquent\DummyAppVersion\DummyFullModelClassRepository;
 use App\Http\Resources\DummyAppVersion\DummyFullModelClassResource;
-use App\Http\Requests\DummyAppVersion\DummyFullModelClassRequest;
+use Illuminate\Http\Request;
 
 class DummyClass extends Controller
 {
-    use ResponseTrait;
+    protected $modelRepository;
 
-    public function __construct(DummyModelClassRepositoryInterface $DummyModelVariableRepository)
+    protected $rules = [];
+
+    public function __construct(
+        DummyModelClassRepository $DummyModelVariableRepository, 
+        Request $request
+    )
     {
         $this->middleware('permission:DummyModelVariable-read', [
             'only' => [
-                'index'
+                'index',
+                'onlyTrashed'
             ]
         ]);
         $this->middleware('permission:DummyModelVariable-create', [
@@ -28,91 +31,21 @@ class DummyClass extends Controller
         ]);
         $this->middleware('permission:DummyModelVariable-update', [
             'only' => [
-                'update'
+                'update',
+                'restore'
             ]
         ]);
         $this->middleware('permission:DummyModelVariable-delete', [
             'only' => [
-                'destroy'
+                'destroy',
+                'forceDelete'
             ]
         ]);
 
-        $this->DummyModelVariableRepository = $DummyModelVariableRepository;
-    }
+        $this->modelRepository = $DummyModelVariableRepository;
+        $this->resource = DummyModelClassResource::class;
+        $this->modelName = 'DummyModelClass';
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
-    {
-        $keyword = $request->keyword;
-        $rowsPerPage = $request->rowsPerPage;
-        try {
-            $results = $this->DummyModelVariableRepository->search($keyword, $rowsPerPage);
-            return DummyModelClassResource::collection($results);
-        } catch(\Exception $e) {
-            return $this->failedResponse($e->getMessage(), SERVER_ERROR);
-        }
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(DummyModelClassRequest $request)
-    {
-        try {
-            $this->DummyModelVariableRepository->create($request->all());
-            return $this->successResponse(trans('DummyLangFullPath.created'), DATA_CREATED);
-        } catch(\Exception $e) {
-            return $this->failedResponse($e->getMessage(), SERVER_ERROR);
-        }
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(DummyModelClassRequest $request, $id)
-    {
-        $data = $this->DummyModelVariableRepository->find($id);
-        if (!$data) {
-            throw new AuthorizationException;
-        }
-
-        try {
-            $data->update($request->all());
-            return $this->successResponse(trans('DummyLangFullPath.updated'), DATA_OK);
-        } catch(\Exception $e) {
-            return $this->failedResponse($e->getMessage(), SERVER_ERROR);
-        }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $data = $this->DummyModelVariableRepository->find($id);
-        if (!$data) {
-            throw new AuthorizationException;
-        }
-
-        try {
-            $data->delete($id);
-            return $this->successResponse(trans('DummyLangFullPath.deleted'), DATA_OK);
-        } catch(\Exception $e) {
-            return $this->failedResponse($e->getMessage(), SERVER_ERROR);
-        }
+        parent::__construct($request);
     }
 }

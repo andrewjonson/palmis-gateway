@@ -78,11 +78,7 @@ require_once __DIR__. './constant.php';
 // ]);
 
 $app->routeMiddleware([
-    'verified' => App\Http\Middleware\EmailVerificationMiddleware::class,
-    'jwt' => App\Http\Middleware\JwtMiddleware::class,
-    'screenLockDisabled' => App\Http\Middleware\ScreenLockDisabledMiddleware::class,
-    'permission' => App\Http\Middleware\PermissionMiddleware::class,
-    'role' => App\Http\Middleware\RoleMiddleware::class,
+    'auth' => App\Http\Middleware\Authenticate::class,
 ]);
 
 /*
@@ -97,10 +93,9 @@ $app->routeMiddleware([
 */
 
 $app->register(App\Providers\AppServiceProvider::class);
-$app->register(App\Providers\AuthServiceProvider::class);
-$app->register(App\Providers\EventServiceProvider::class);
-$app->register(App\Providers\RepositoryServiceProvider::class);
-$app->register(OwenIt\Auditing\AuditingServiceProvider::class);
+// $app->register(App\Providers\AuthServiceProvider::class);
+// $app->register(App\Providers\EventServiceProvider::class);
+$app->register(ElfSundae\Laravel\Hashid\HashidServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
