@@ -113,7 +113,7 @@ class ModelMakeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\\Models\\'.env('APP_VERSION');
+        return $rootNamespace.'\\Models\\'.config('app.version');
     }
 
     /**

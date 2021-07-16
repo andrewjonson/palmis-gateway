@@ -47,7 +47,7 @@ class RepositoryMakeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . '\Repositories\Eloquent\\'.env('APP_VERSION');
+        return $rootNamespace . '\Repositories\Eloquent\\'.config('app.version');
     }
 
     /**

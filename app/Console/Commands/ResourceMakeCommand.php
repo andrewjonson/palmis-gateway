@@ -60,6 +60,6 @@ class ResourceMakeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\\Http\\Resources\\'.env('APP_VERSION');
+        return $rootNamespace.'\\Http\\Resources\\'.config('app.version');
     }
 }

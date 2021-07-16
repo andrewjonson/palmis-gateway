@@ -1,0 +1,10 @@
+<?php
+
+namespace DummyNamespace;
+
+use App\Traits\ConsumeExternalService;
+
+class DummyClass
+{
+    use ConsumeExternalService;
+}

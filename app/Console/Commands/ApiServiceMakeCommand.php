@@ -4,28 +4,28 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\GeneratorCommand;
 
-class RequestMakeCommand extends GeneratorCommand
+class ApiServiceMakeCommand extends GeneratorCommand
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'make:request';
+    protected $name = 'make:api-service';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Create a new request class';
+    protected $description = 'Create a new api service';
 
     /**
      * The type of class being generated.
      *
      * @var string
      */
-    protected $type = 'Request';
+    protected $type = 'Service';
 
     /**
      * Execute the console command.
@@ -46,7 +46,7 @@ class RequestMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        $stub = '../../stubs/request.stub';
+        $stub = '../../stubs/api-service.stub';
 
         return __DIR__ . $stub;
     }
@@ -60,6 +60,6 @@ class RequestMakeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\\Http\\Requests\\'.config('app.version');
+        return $rootNamespace.'\\Services\\ApiService\\'.config('app.version');
     }
 }

@@ -60,6 +60,6 @@ class InterfaceMakeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\\Repositories\\Interfaces\\'.env('APP_VERSION');
+        return $rootNamespace.'\\Repositories\\Interfaces\\'.config('app.version');
     }
 }

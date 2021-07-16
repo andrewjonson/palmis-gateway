@@ -61,7 +61,7 @@ class LangMakeCommand extends GeneratorCommand
     protected function getPath($name)
     {
         $modelClass = Str::replaceArray('App', [''], $name);
-        return $this->laravel->basePath('resources').'/lang/en/'.env('APP_VERSION').'/'.Str::lower($modelClass).'.php';
+        return $this->laravel->basePath('resources').'/lang/en/'.config('app.version').'/'.Str::lower($modelClass).'.php';
     }
 
     /**
