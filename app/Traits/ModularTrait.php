@@ -2,7 +2,7 @@
 namespace App\Traits;
 
 use App\Scopes\ModularScope;
-use App\Services\ApiService\PaisTemplateService;
+use App\Services\ApiService\v1\PaisTemplateService;
 
 trait ModularTrait
 {

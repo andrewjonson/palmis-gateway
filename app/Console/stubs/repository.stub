@@ -4,7 +4,7 @@ namespace DummyNamespace;
 
 use App\Repositories\Eloquent\v1\BaseRepository;
 use App\Models\DummyAppVersion\DummyFullModelClass;
-use App\Repositories\Interfaces\DummyAppVersion\DummyClassInterface;
+use App\Repositories\Interfaces\DummyAppVersion\DummyFullModelClassRepositoryInterface;
 
 class DummyClass extends BaseRepository implements DummyClassInterface
 {

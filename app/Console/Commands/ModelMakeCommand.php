@@ -41,7 +41,6 @@ class ModelMakeCommand extends GeneratorCommand
         }
 
         if ($this->option('all')) {
-            $this->createPermissionsSeeder();
             $this->createController();
             $this->createRepository();
         }
@@ -71,10 +70,6 @@ class ModelMakeCommand extends GeneratorCommand
 
         $this->call('make:repository', array_filter([
             'name'  => "{$repository}Repository"
-        ]));
-
-        $this->call('make:interface', array_filter([
-            'name'  => "{$repository}RepositoryInterface"
         ]));
     }
 
@@ -117,64 +112,7 @@ class ModelMakeCommand extends GeneratorCommand
             ['all', 'a', InputOption::VALUE_NONE, 'Generate a migration, seeder, factory, and resource controller for the model'],
             ['plain', null, InputOption::VALUE_NONE, 'Create a plain model class'],
             ['controller', null, InputOption::VALUE_NONE, 'Create a new controller for the model'],
-            ['repository', null, InputOption::VALUE_NONE, 'Create a new repository for the model'],
-            ['fillable', null, InputOption::VALUE_NONE, 'Create a model fillables'],
-            ['table', null, InputOption::VALUE_NONE, 'Create a model table'],
+            ['repository', null, InputOption::VALUE_NONE, 'Create a new repository for the model']
         ];
-    }
-
-    protected function getFillable()
-    {
-        $fillable = $this->option('fillable');
-
-        if (!is_null($fillable)) {
-            $arrays = explode(',', $fillable);
-
-            return json_encode($arrays);
-        }
-
-        return '[]';
-    }
-
-    protected function getTable()
-    {
-        $table = $this->option('table');
-        $this->call('make:migration', array_filter([
-            'name'  => "create_{$table}"
-        ]));
-        return $table;
-    }
-
-    /**
-     * Build the class with the given name.
-     *
-     * Remove the base controller import if we are already in base namespace.
-     *
-     * @param  string  $name
-     * @return string
-     */
-    protected function buildClass($name)
-    {
-        $replace = [];
-
-        $replace = $this->buildModelReplacements($replace);
-
-        return str_replace(
-            array_keys($replace), array_values($replace), parent::buildClass($name)
-        );
-    }
-
-    /**
-     * Build the model replacement values.
-     *
-     * @param  array  $replace
-     * @return array
-     */
-    protected function buildModelReplacements(array $replace)
-    {
-        return array_merge($replace, [
-            'DummyFillables' => $this->getFillable(),
-            'DummyTable' => $this->getTable()
-        ]);
     }
 }

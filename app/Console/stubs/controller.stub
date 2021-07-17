@@ -3,18 +3,16 @@
 namespace DummyNamespace;
 
 use DummyRootNamespaceHttp\Controllers\Controller;
-use App\Repositories\Eloquent\DummyAppVersion\DummyFullModelClassRepository;
+use App\Repositories\Interfaces\DummyAppVersion\DummyFullModelClassRepositoryInterface;
 use App\Http\Resources\DummyAppVersion\DummyFullModelClassResource;
 use Illuminate\Http\Request;
 
 class DummyClass extends Controller
 {
-    protected $modelRepository;
-
     protected $rules = [];
 
     public function __construct(
-        DummyModelClassRepository $DummyModelVariableRepository, 
+        DummyModelClassRepositoryInterface $DummyModelVariableRepository, 
         Request $request
     )
     {

@@ -11,6 +11,6 @@ class DummyClass extends Model
     use ModularTrait;
     use SoftDeletes;
 
-    protected $fillable = DummyFillables;
-    protected $table = 'DummyTable';
+    protected $fillable = [];
+    protected $table = '';
 }
