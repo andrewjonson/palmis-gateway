@@ -1,24 +1,65 @@
-# Lumen PHP Framework
+## Recommended System Requirements
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://img.shields.io/packagist/dt/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://img.shields.io/packagist/v/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://img.shields.io/packagist/l/laravel/framework)](https://packagist.org/packages/laravel/lumen-framework)
+1. PHP version 8 or above
+2. Xampp or any apache server
+3. Pgadmin
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+Note: Make sure pgsql extension is enabled.
 
-## Official Documentation
+# Installation Instructions
 
-Documentation for the framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
+Run following commands.
+1. composer install
+2. cp .env.example //change database credentials
 
-## Contributing
+## Creating Plain Model
 
-Thank you for considering contributing to Lumen! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+`php artisan make:model References/NameOfModel` //Reference Model
+`php artisan make:model Transactions/NameOfModel` //Transaction Model
 
-## Security Vulnerabilities
+## Creating Model, Repository, Controller and Resource
 
-If you discover a security vulnerability within Lumen, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+`php artisan make:model NameOfModel -a`
 
-## License
+## Creating Plain Controller
 
-The Lumen framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+`php artisan make:controller NameOfController`
+
+## Creating Model Repository
+
+`php artisan make:repository NameOfRepository`
+
+## Creating Repository Interface
+
+`php artisan make:interface NameOfInterface`
+
+## Creating migration
+
+`php artisan make:migration create_table_name`
+
+## Creating Form Request
+
+`php artisan make:request NameOfRequest`
+
+## Creating Json Resource
+
+`php artisan make:resource NameOfResource`
+
+## Creating Api Service
+
+`php artisan make:api-service NameOfService`
+
+## Creating Model Seeder
+
+`php artisan make:seed NameOfSeeder`
+
+## Adding Route Resource
+
+`resource('uri', 'PathToController', $router)`
+
+## Adding Routes
+
+`$router->get('uri', 'PathToController@NameOfFunction')`
+`$router->post('uri', 'PathToController@NameOfFunction')`
+`$router->put('uri', 'PathToController@NameOfFunction')`
+`$router->delete('uri', 'PathToController@NameOfFunction')`

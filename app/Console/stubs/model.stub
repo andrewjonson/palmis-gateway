@@ -3,15 +3,14 @@
 namespace DummyNamespace;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\Userstamps;
+use App\Traits\ModularTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use OwenIt\Auditing\Contracts\Auditable;
 
 class DummyClass extends Model
 {
-    use Userstamps;
+    use ModularTrait;
     use SoftDeletes;
 
-    protected $fillable = [];
-    protected $table = '';
+    protected $fillable = DummyFillables;
+    protected $table = 'DummyTable';
 }

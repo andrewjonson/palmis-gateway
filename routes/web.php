@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/Resource.php';
+
 /** @var \Laravel\Lumen\Routing\Router $router */
 
 /*
@@ -13,8 +15,6 @@
 |
 */
 
-require_once __DIR__ . '/Resource.php';
-
-$router->group(['middleware' => 'auth', 'prefix' => config('app.version').'/NameOfModule'], function() use($router) {
-    //resource('ranks', 'References\RankController', $router);
+$router->group(['prefix' => 'api/'.config('app.version').'/NameOfModule'], function() use($router) {
+    //routes goes here
 });

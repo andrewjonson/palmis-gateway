@@ -1,12 +1,14 @@
 <?php
 namespace App\Traits;
 
+use App\Scopes\ModularScope;
 use App\Services\ApiService\PaisTemplateService;
 
-trait Userstamps
+trait ModularTrait
 {
     protected static function booted()
     {
+        static::addGlobalScope(new ModularScope);
         $service = new PaisTemplateService;
         $userId = $service->currentUser()['data']['id'];
         static::creating(function ($model) use($userId) {

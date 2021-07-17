@@ -1,11 +1,17 @@
 <?php
 
-namespace database\seeders\DummyAppVersion\DummySeederNamespace;
+namespace Database\Seeders\DummyAppVersion\DummySeederNamespace;
 
 use Illuminate\Database\Seeder;
+use App\Services\ApiService\PaisTemplateService;
 
 class DummyClass extends Seeder
 {
+    public function __construct(PaisTemplateService $paisTemplateService)
+    {
+        $this->paisTemplateService = $paisTemplateService;
+    }
+
     /**
      * Run the database seeds.
      *
@@ -13,6 +19,17 @@ class DummyClass extends Seeder
      */
     public function run()
     {
-        //
+        $permissions = [
+            'DummyNameLower-read',
+            'DummyNameLower-create',
+            'DummyNameLower-update',
+            'DummyNameLower-delete'
+        ];
+
+        foreach($permissions as $permission) {
+            $this->paisTemplateService->createPermissions([
+                'name' => $permission
+            ]);
+        }
     }
 }

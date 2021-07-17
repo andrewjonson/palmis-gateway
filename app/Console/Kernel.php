@@ -14,14 +14,15 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         'App\Console\Commands\ModelMakeCommand',
-        'App\Console\Commands\PermissionSeederMakeCommand',
         'App\Console\Commands\ControllerMakeCommand',
         'App\Console\Commands\RepositoryMakeCommand',
         'App\Console\Commands\InterfaceMakeCommand',
         'App\Console\Commands\ResourceMakeCommand',
         'App\Console\Commands\RequestMakeCommand',
         'App\Console\Commands\LangMakeCommand',
-        'App\Console\Commands\MigrationMakeCommand'
+        'App\Console\Commands\MigrationMakeCommand',
+        'App\Console\Commands\ApiServiceMakeCommand',
+        'App\Console\Commands\SeederMakeCommand'
     ];
 
     /**

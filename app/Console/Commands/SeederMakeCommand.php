@@ -3,22 +3,23 @@
 namespace App\Console\Commands;
 
 use Illuminate\Support\Str;
+use Illuminate\Console\GeneratorCommand;
 
-class PermissionSeederMakeCommand extends \Illuminate\Console\GeneratorCommand
+class SeederMakeCommand extends GeneratorCommand
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'make:permission-seeder';
+    protected $name = 'make:seed';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Create a new permissions seeder class';
+    protected $description = 'Create a new seeder class';
 
     /**
      * The type of class being generated.
@@ -46,7 +47,9 @@ class PermissionSeederMakeCommand extends \Illuminate\Console\GeneratorCommand
      */
     protected function getStub()
     {
-        return __DIR__.'../../stubs/permission-seeder.stub';
+        $stub = '../../stubs/seeder.stub';
+
+        return __DIR__ . $stub;
     }
 
     /**
@@ -57,8 +60,8 @@ class PermissionSeederMakeCommand extends \Illuminate\Console\GeneratorCommand
      */
     protected function getPath($name)
     {
-        $modelClass = Str::replaceArray('App', [''], $this->argument('name'));
-        return $this->laravel->basePath('database').'/seeders/'.config('app.version').'/'.$modelClass.'.php';
+        $modelClass = Str::replaceArray('App', [''], $name);
+        return $this->laravel->basePath('database').'/seeders/'.config('app.version').'/'.Str::lower($modelClass).'.php';
     }
 
     /**
@@ -73,7 +76,7 @@ class PermissionSeederMakeCommand extends \Illuminate\Console\GeneratorCommand
     {
         $replace = [];
 
-        $replace = $this->buildReplacements($replace);
+        $replace = $this->buildModelReplacements($replace);
 
         return str_replace(
             array_keys($replace), array_values($replace), parent::buildClass($name)
@@ -86,7 +89,7 @@ class PermissionSeederMakeCommand extends \Illuminate\Console\GeneratorCommand
      * @param  array  $replace
      * @return array
      */
-    protected function buildReplacements(array $replace)
+    protected function buildModelReplacements(array $replace)
     {
         $name = Str::replaceArray('/', ['\\'], $this->argument('name'));
         $seeder = Str::replaceArray('\\'.class_basename($name), [''], $name);

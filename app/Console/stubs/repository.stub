@@ -2,10 +2,11 @@
 
 namespace DummyNamespace;
 
-use App\Repositories\Eloquent\BaseRepository;
+use App\Repositories\Eloquent\v1\BaseRepository;
 use App\Models\DummyAppVersion\DummyFullModelClass;
+use App\Repositories\Interfaces\DummyAppVersion\DummyClassInterface;
 
-class DummyClass extends BaseRepository
+class DummyClass extends BaseRepository implements DummyClassInterface
 {
     public function __construct(DummyModelClass $model)
     {

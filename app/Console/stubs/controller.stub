@@ -18,30 +18,6 @@ class DummyClass extends Controller
         Request $request
     )
     {
-        $this->middleware('permission:DummyModelVariable-read', [
-            'only' => [
-                'index',
-                'onlyTrashed'
-            ]
-        ]);
-        $this->middleware('permission:DummyModelVariable-create', [
-            'only' => [
-                'store'
-            ]
-        ]);
-        $this->middleware('permission:DummyModelVariable-update', [
-            'only' => [
-                'update',
-                'restore'
-            ]
-        ]);
-        $this->middleware('permission:DummyModelVariable-delete', [
-            'only' => [
-                'destroy',
-                'forceDelete'
-            ]
-        ]);
-
         $this->modelRepository = $DummyModelVariableRepository;
         $this->resource = DummyModelClassResource::class;
         $this->modelName = 'DummyModelClass';

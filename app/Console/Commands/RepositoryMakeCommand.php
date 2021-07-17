@@ -29,6 +29,15 @@ class RepositoryMakeCommand extends GeneratorCommand
      */
     protected $type = 'Repository';
 
+    public function handle()
+    {
+        if (parent::handle() === false) {
+            return false;
+        }
+
+        $this->createInterface();
+    }
+
     /**
      * 
      * Get the stub file for the generator.
@@ -37,7 +46,7 @@ class RepositoryMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        return  base_path('App/Console/stubs/repository.stub');
+        return base_path('App/Console/stubs/repository.stub');
     }
     /**
      * Get the default namespace for the class.
@@ -60,6 +69,15 @@ class RepositoryMakeCommand extends GeneratorCommand
         return [
             ['name', InputArgument::REQUIRED, 'The name of the model class.'],
         ];
+    }
+
+    protected function createInterface()
+    {
+        $repository = Str::studly($this->argument('name'));
+
+        $this->call('make:interface', array_filter([
+            'name'  => "{$repository}Interface"
+        ]));
     }
 
     /**

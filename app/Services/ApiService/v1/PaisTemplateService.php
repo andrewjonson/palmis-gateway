@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\ApiService;
+namespace App\Services\ApiService\v1;
 
 use App\Traits\ConsumeExternalService;
 
