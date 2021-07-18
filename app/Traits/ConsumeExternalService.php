@@ -1,7 +1,7 @@
 <?php
 namespace App\Traits;
 
-use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Http;
 
 trait ConsumeExternalService
 {
@@ -13,17 +13,14 @@ trait ConsumeExternalService
      * @param array $headers
      * @return string
      */
-    public function performRequest($method, $requestUrl, $formParams = [], $headers = [])
+    public function performRequest($method, $requestUrl, $formParams = [])
     {
-        $client = new Client([
-            'base_uri' => env('API_GATEWAY_BASE_URL', 'http://10.50.30.157:8000'),
-        ]);
-
-        $headers['Authorization'] = request()->header('Authorization');
-        $response = $client->request($method, $requestUrl, [
-            'form_params' => $formParams,
-            'headers' => $headers,
-        ]);
-        return json_decode($response->getBody(), true);
+        $base_uri = env('API_GATEWAY_BASE_URL', 'http://10.50.30.157:8000/');
+        $token = request()->bearerToken();
+        $response = Http::withHeaders([
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json'
+        ])->withToken($token)->$method($base_uri.$requestUrl, $formParams);
+        return $response->json();
     }
 }
