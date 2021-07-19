@@ -10,6 +10,6 @@ class PaisTemplateService
 
     public function currentUser()
     {
-        return $this->performRequest('GET', '/users/current-user');
+        return $this->performRequest('GET', '/api/users/current-user');
     }
 }
