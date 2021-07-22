@@ -61,7 +61,7 @@ class SeederMakeCommand extends GeneratorCommand
     protected function getPath($name)
     {
         $modelClass = Str::replaceArray('App', [''], $name);
-        return $this->laravel->basePath('database').'/seeders/'.config('app.version').'/'.Str::lower($modelClass).'.php';
+        return $this->laravel->basePath('database').'/seeders/'.config('app.version').'/'.$modelClass.'.php';
     }
 
     /**
