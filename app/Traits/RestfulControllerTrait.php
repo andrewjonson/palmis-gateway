@@ -48,12 +48,12 @@ trait RestfulControllerTrait
     public function update(Request $request, $id)
     {
         $id = hashid_decode($id);
-        $this->validateRequest($request, $id);
         $data = $this->modelRepository->find($id);
         if (!$data) {
             throw new AuthorizationException;
         }
-
+        
+        $this->validateRequest($request, $id);
         try {
             $data->update($request->all());
             return $this->successResponse($this->modelName.' Updated Successfully', DATA_OK);
