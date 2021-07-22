@@ -16,9 +16,10 @@ trait RestfulControllerTrait
         $this->resource;
     }
 
-    public function validateRequest(Request $request)
+    public function validateRequest(Request $request, $id = null)
     {
-        $this->validate($request, $this->rules);
+        $rules = str_replace('{{$id}}', $id, $this->rules);
+        $this->validate($request, $rules);
     }
 
     public function index(Request $request)
@@ -46,8 +47,8 @@ trait RestfulControllerTrait
 
     public function update(Request $request, $id)
     {
-        $this->validateRequest($request);
         $id = hashid_decode($id);
+        $this->validateRequest($request, $id);
         $data = $this->modelRepository->find($id);
         if (!$data) {
             throw new AuthorizationException;
