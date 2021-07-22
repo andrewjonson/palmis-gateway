@@ -8,6 +8,6 @@ function resource($uri, $controller, $router)
 	$router->put($uri.'/{id}', $version.'\\'.$controller.'@update');
 	$router->delete($uri.'/{id}', $version.'\\'.$controller.'@destroy');
     $router->put($uri.'/restore/{id}', $version.'\\'.$controller.'@restore');
-    $router->get($uri.'/onlyTrashed', $version.'\\'.$controller.'@onlyTrashed');
+    $router->get($uri.'/only-trashed', $version.'\\'.$controller.'@onlyTrashed');
     $router->delete($uri.'/force-delete/{id}', $version.'\\'.$controller.'@forceDelete');
 }
