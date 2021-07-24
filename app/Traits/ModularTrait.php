@@ -10,23 +10,25 @@ trait ModularTrait
     protected static function booted()
     {
         static::addGlobalScope(new ModularScope);
-        $service = new PaisTemplateService;
-        try {
-            $userId = $service->currentUser()['data']['id'];
-            $userId = hashid_decode($userId);
-            static::creating(function ($model) use($userId) {
-                $model->created_by = $userId;
-            });
+        if (!app()->runningInConsole()) {
+            try {
+                $service = new PaisTemplateService;
+                $userId = $service->currentUser()['data']['id'];
+                $userId = hashid_decode($userId);
+                static::creating(function ($model) use($userId) {
+                    $model->created_by = $userId;
+                });
 
-            static::updating(function ($model) use($userId) {
-                $model->updated_by = $userId;
-            });
+                static::updating(function ($model) use($userId) {
+                    $model->updated_by = $userId;
+                });
 
-            static::deleting(function ($model) use($userId) {
-                $model->deleted_by = $userId;
-            });
-        } catch (\Exception $e) {
-            throw new AuthenticationException;
+                static::deleting(function ($model) use($userId) {
+                    $model->deleted_by = $userId;
+                });
+            } catch (\Exception $e) {
+                throw new AuthenticationException;
+            }
         }
     }
 }
