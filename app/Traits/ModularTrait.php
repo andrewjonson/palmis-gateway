@@ -14,8 +14,10 @@ trait ModularTrait
             try {
                 $service = new PaisTemplateService;
                 $userId = $service->currentUser()['data']['id'];
+                $teamId = $service->currentUser()['data']['team_id'];
                 $userId = hashid_decode($userId);
-                static::creating(function ($model) use($userId) {
+                static::creating(function ($model) use($userId, $teamId) {
+                    $model->team_id = $teamId;
                     $model->created_by = $userId;
                 });
 
