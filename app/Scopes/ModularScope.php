@@ -14,11 +14,12 @@ class ModularScope implements Scope
             $service = new PaisTemplateService;
             $user = $service->currentUser();
             if (!$user['data']['is_superadmin']) {
-                if (!$user['data']['team_id']) {
+                if (!$user['data']['team']) {
                     throw new AuthorizationException;
                 }
 
-                $builder->where('team_id', $user['data']['team_id']);
+                $teamId = hashid_decode($user['data']['team']['id']);
+                $builder->where('team_id', $teamId);
             }
         }
     }

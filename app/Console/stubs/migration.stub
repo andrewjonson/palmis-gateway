@@ -18,7 +18,8 @@ class {{ class }} extends Migration
             $table->bigInteger('team_id')
                     ->nullable();
             $table->bigInteger('created_by')
-                    ->nullable();
+                    ->nullable()
+                    ->default(1);
             $table->bigInteger('updated_by')
                     ->nullable();
             $table->bigInteger('deleted_by')
