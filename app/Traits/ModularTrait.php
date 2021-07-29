@@ -16,7 +16,7 @@ trait ModularTrait
                 $userId = $service->currentUser()['data']['id'];
                 $teamId = $service->currentUser()['data']['team']['id'];
                 $userId = hashid_decode($userId);
-                $teamId - hashid_decode($teamId);
+                $teamId = hashid_decode($teamId);
                 static::creating(function ($model) use($userId, $teamId) {
                     $model->team_id = $teamId;
                     $model->created_by = $userId;
