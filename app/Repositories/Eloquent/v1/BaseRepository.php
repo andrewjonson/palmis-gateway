@@ -93,4 +93,9 @@ class BaseRepository implements EloquentRepositoryInterface
     {
         return $this->model->whereIn('id', $id)->get();
     }
+
+    public function firstOrCreate(array $data)
+    {
+        return $this->model->firstOrCreate($data);
+    }
 }
