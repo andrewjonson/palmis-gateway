@@ -101,7 +101,7 @@ class BaseRepository implements EloquentRepositoryInterface
 
     public function where($column, $data)
     {
-        for($i = 0; $i < count($column); $i++) {
+        for($i = 0; $i <= count($column); $i++) {
             return $this->model->where($column[$i], $data[$i]);
         }
     }

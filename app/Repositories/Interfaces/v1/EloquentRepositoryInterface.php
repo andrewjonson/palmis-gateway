@@ -33,4 +33,6 @@ interface EloquentRepositoryInterface
     public function getByIds(array $id);
 
     public function firstOrCreate(array $data);
+
+    public function where($column, $data);
 }
