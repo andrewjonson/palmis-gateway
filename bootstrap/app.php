@@ -99,6 +99,8 @@ $app->register(App\Providers\RepositoryServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register(ElfSundae\Laravel\Hashid\HashidServiceProvider::class);
 $app->register(\Anik\Form\FormRequestServiceProvider::class);
+$app->register(Illuminate\Redis\RedisServiceProvider::class);
+$app->register(GeneaLabs\LaravelModelCaching\Providers\Service::class);
 
 /*
 |--------------------------------------------------------------------------

@@ -2,11 +2,11 @@
 
 namespace DummyNamespace;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\BaseModel;
 use App\Traits\ModularTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class DummyClass extends Model
+class DummyClass extends BaseModel
 {
     use ModularTrait;
     use SoftDeletes;
