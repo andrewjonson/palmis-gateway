@@ -3,8 +3,9 @@
 namespace DummyNamespace;
 
 use Laravel\Lumen\Routing\Controller as BaseController;
+use App\Traits\ResponseTrait;
 
 class DummyClass extends BaseController
 {
-    //
+    use ResponseTrait;
 }
