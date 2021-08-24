@@ -4,6 +4,7 @@ namespace App\Traits;
 use App\Scopes\ModularScope;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Auth\AuthenticationException;
+use App\Services\ApiService\v1\PaisTemplateService;
 
 trait ModularTrait
 {
@@ -12,9 +13,15 @@ trait ModularTrait
         static::addGlobalScope(new ModularScope);
         if (!app()->runningInConsole()) {
             try {
-                $user = Cache::get('current-user')['data'];
-                $teamId = $user['team']['id'];
-                $userId = $user['id'];
+                $user = Cache::get('current-user');
+                if (!$user) {
+                    $service = new PaisTemplateService;
+                    $user = $service->currentUser();
+                    Cache::set('current-user', $user);
+                }
+                
+                $teamId = $user['data']['team']['id'];
+                $userId = $user['data']['id'];
                 $userId = hashid_decode($userId);
                 $teamId = hashid_decode($teamId);
                 static::creating(function ($model) use($userId, $teamId) {
