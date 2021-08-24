@@ -1,6 +1,7 @@
 <?php
 namespace App\Scopes;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\Eloquent\Builder;
@@ -12,8 +13,13 @@ class ModularScope implements Scope
     public function apply(Builder $builder, Model $model)
     {
         if (!app()->runningInConsole()) {
-            $service = new PaisTemplateService;
-            $user = $service->currentUser();
+            $user = Cache::get('current-user');
+            if(!$user) {
+                $service = new PaisTemplateService;
+                $user = $service->currentUser();
+                Cache::set('current-user', $user);
+            }
+
             if (!$user['data']['is_superadmin']) {
                 if (!$user['data']['team']) {
                     throw new AuthorizationException;
