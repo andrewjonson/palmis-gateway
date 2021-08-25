@@ -13,13 +13,14 @@ class ModularScope implements Scope
     public function apply(Builder $builder, Model $model)
     {
         if (!app()->runningInConsole()) {
-            $user = Cache::get('current-user');
-            if(!$user) {
+            $token = request()->bearerToken();
+            if(!Cache::has('current-user-'.$token)) {
                 $service = new PaisTemplateService;
                 $user = $service->currentUser();
-                Cache::set('current-user', $user);
+                Cache::set('current-user-'.$token, $user, 300);
             }
 
+            $user = Cache::get('current-user-'.$token);
             if (!$user['data']['is_superadmin']) {
                 if (!$user['data']['team']) {
                     throw new AuthorizationException;

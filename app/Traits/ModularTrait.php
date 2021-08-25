@@ -13,13 +13,14 @@ trait ModularTrait
         static::addGlobalScope(new ModularScope);
         if (!app()->runningInConsole()) {
             try {
-                $user = Cache::get('current-user');
-                if (!$user) {
+                $token = request()->bearerToken();
+                if (!Cache::has('current-user-'.$token)) {
                     $service = new PaisTemplateService;
                     $user = $service->currentUser();
-                    Cache::set('current-user', $user);
+                    Cache::set('current-user-'.$token, $user, 300);
                 }
                 
+                $user = Cache::get('current-user-'.$token);
                 $teamId = $user['data']['team']['id'];
                 $userId = $user['data']['id'];
                 $userId = hashid_decode($userId);
