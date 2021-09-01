@@ -16,7 +16,7 @@ interface EloquentRepositoryInterface
 
     public function update(array $data, $id);
 
-    public function updateOrCreate(array $data);
+    public function updateOrCreate(array $condition, array $data);
 
     public function find($id);
 
