@@ -18,6 +18,10 @@ trait RestfulControllerTrait
 
     public function validateRequest(Request $request, $id = null)
     {
+        if (!$id) {
+            $id = 0;
+        }
+
         $rules = str_replace('{{$id}}', $id, $this->rules);
         $this->validate($request, $rules);
     }
