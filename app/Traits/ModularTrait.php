@@ -4,6 +4,7 @@ namespace App\Traits;
 use App\Scopes\ModularScope;
 use App\Traits\ResponseTrait;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Auth\AuthenticationException;
 use App\Services\ApiService\v1\PaisTemplateService;
 
 trait ModularTrait
@@ -43,7 +44,7 @@ trait ModularTrait
                     });
                 }
             } catch(\Exception $e) {
-                return $this->failedResponse($e->getMessage(), 500);
+                throw new AuthenticationException;
             }
         }
     }
