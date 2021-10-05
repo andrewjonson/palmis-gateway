@@ -15,9 +15,9 @@ trait ModularTrait
     {
         static::addGlobalScope(new ModularScope);
         if (!app()->runningInConsole()) {
-            try {
-                $token = request()->bearerToken();
-                if ($token) {
+            $token = request()->bearerToken();
+            if ($token) {
+                try {
                     if (!Cache::has('current-user-'.$token)) {
                         $service = new PaisTemplateService;
                         $user = $service->currentUser();
@@ -42,9 +42,9 @@ trait ModularTrait
                     static::deleting(function ($model) use($userId) {
                         $model->deleted_by = $userId;
                     });
+                } catch(\Exception $e) {
+                    throw new AuthenticationException;
                 }
-            } catch(\Exception $e) {
-                throw new AuthenticationException;
             }
         }
     }
