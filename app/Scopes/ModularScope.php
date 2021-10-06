@@ -14,20 +14,22 @@ class ModularScope implements Scope
     {
         if (!app()->runningInConsole()) {
             $token = request()->bearerToken();
-            if(!Cache::has('current-user-'.$token)) {
-                $service = new PaisTemplateService;
-                $user = $service->currentUser();
-                Cache::set('current-user-'.$token, $user, 300);
-            }
-
-            $user = Cache::get('current-user-'.$token);
-            if (!$user['data']['is_superadmin']) {
-                if (!$user['data']['team']) {
-                    throw new AuthorizationException;
+            if (isset($token)) {
+                if(!Cache::has('current-user-'.$token)) {
+                    $service = new PaisTemplateService;
+                    $user = $service->currentUser();
+                    Cache::set('current-user-'.$token, $user, 300);
                 }
-
-                $teamId = hashid_decode($user['data']['team']['id']);
-                $builder->where('team_id', $teamId);
+    
+                $user = Cache::get('current-user-'.$token);
+                if (!$user['data']['is_superadmin']) {
+                    if (!$user['data']['team']) {
+                        throw new AuthorizationException;
+                    }
+    
+                    $teamId = hashid_decode($user['data']['team']['id']);
+                    $builder->where('team_id', $teamId);
+                }
             }
         }
     }

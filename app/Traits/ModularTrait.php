@@ -16,7 +16,7 @@ trait ModularTrait
         static::addGlobalScope(new ModularScope);
         if (!app()->runningInConsole()) {
             $token = request()->bearerToken();
-            if ($token) {
+            if (isset($token)) {
                 try {
                     if (!Cache::has('current-user-'.$token)) {
                         $service = new PaisTemplateService;
