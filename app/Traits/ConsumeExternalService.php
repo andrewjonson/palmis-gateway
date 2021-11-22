@@ -15,12 +15,12 @@ trait ConsumeExternalService
      */
     public function performRequest($method, $requestUrl, $formParams = [])
     {
-        $base_uri = env('API_GATEWAY_BASE_URL', 'http://10.50.30.157:8000/');
+        $apiKey = config('app.api_key');
+        $baseUrl = config('app.api_gateway_base_url');
         $token = request()->bearerToken();
         $response = Http::withHeaders([
-            'Content-Type' => 'application/json',
-            'Accept' => 'application/json'
-        ])->withToken($token)->$method($base_uri.$requestUrl, $formParams);
+            'X-Authorization' => $apiKey
+        ])->$method($baseUrl.$requestUrl, $formParams);
         return $response->json();
     }
 }

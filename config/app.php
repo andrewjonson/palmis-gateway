@@ -108,5 +108,9 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
-    'version' => env('APP_VERSION', 'v1')
+    'version' => env('APP_VERSION', 'v1'),
+
+    'api_key' => env('API_KEY'),
+    
+    'api_gateway_base_url' => env('API_GATEWAY_BASE_URL')
 ];
