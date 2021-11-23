@@ -17,8 +17,8 @@ class PaisTemplateService
         $this->secret = config('app.accepted_secret');
     }
 
-    public function currentUser()
+    public function currentUserIdTeamId()
     {
-        return $this->performRequest('GET', '/api/users/current-user');
+        return $this->performRequest('GET', '/api/users/current-user-id-team-id');
     }
 }
