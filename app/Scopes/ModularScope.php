@@ -18,12 +18,12 @@ class ModularScope implements Scope
     public function apply(Builder $builder, Model $model)
     {
         if (!app()->runningInConsole()) {
-            if (!$this->user['data']['is_superadmin']) {
-                if (!$this->user['data']['team']) {
+            if (!$this->user['is_superadmin']) {
+                if (!$this->user['team_id']) {
                     throw new AuthorizationException;
                 }
 
-                $teamId = hashid_decode($this->user['data']['team']['id']);
+                $teamId = hashid_decode($this->user['team_id']);
                 $builder->where('team_id', $teamId);
             }
         }
