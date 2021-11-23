@@ -16,9 +16,9 @@ class AuthenticateAccess
      */
     public function handle($request, Closure $next)
     {
-        $apiKey = explode(',', env('API_KEY'));
+        $validSecret = explode(',', env('ACCEPTED_SECRET'));
 
-        if(in_array($request->header('X-Authorization'), $apiKey)) {
+        if(in_array($request->header('X-Authorization'), $validSecret)) {
             return $next($request);
         }
 

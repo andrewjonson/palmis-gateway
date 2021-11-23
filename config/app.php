@@ -110,7 +110,7 @@ return [
 
     'version' => env('APP_VERSION', 'v1'),
 
-    'api_key' => env('API_KEY'),
-    
+    'accepted_secret' => env('ACCEPTED_SECRET'),
+
     'api_gateway_base_url' => env('API_GATEWAY_BASE_URL')
 ];
