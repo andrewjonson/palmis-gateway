@@ -16,7 +16,7 @@ trait ConsumeExternalService
     public function performRequest($method, $requestUrl, $formParams = [])
     {
         $response = Http::withHeaders([
-            'X-Authorization' => isset($this->secret) ? $this->secret : null
+            'X-Authorization' => $this->secret
         ])->$method($this->baseUrl.$requestUrl, $formParams);
         return $response->json();
     }
