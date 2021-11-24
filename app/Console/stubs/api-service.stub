@@ -7,4 +7,13 @@ use App\Traits\ConsumeExternalService;
 class DummyClass
 {
     use ConsumeExternalService;
+
+    public $baseUrl;
+    public $secret;
+
+    public function __construct()
+    {
+        $this->baseUrl = config('services.DummyModuleLowerClass.base_url');
+        $this->secret = config('services.DummyModuleLowerClass.secret');
+    }
 }

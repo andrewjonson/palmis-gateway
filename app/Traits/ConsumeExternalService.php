@@ -17,7 +17,7 @@ trait ConsumeExternalService
     {
         $response = Http::withHeaders([
             'X-Authorization' => $this->secret
-        ])->$method($this->baseUrl.$requestUrl, $formParams);
+        ])->withToken($token)->$method($this->baseUrl.$requestUrl, $formParams);
         return $response->json();
     }
 }

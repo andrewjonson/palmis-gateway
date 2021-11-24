@@ -13,8 +13,8 @@ class PaisTemplateService
 
     public function __construct()
     {
-        $this->baseUrl = config('app.api_gateway_base_url');
-        $this->secret = config('app.accepted_secret');
+        $this->baseUrl = config('services.api_gateway.base_url');
+        $this->secret = config('services.accepted_secret');
     }
 
     public function currentUserIdTeamId()

@@ -61,6 +61,7 @@ $app->singleton(
 
 $app->configure('app');
 $app->configure('hashid');
+$app->configure('services');
 
 require_once __DIR__. './constant.php';
 /*
