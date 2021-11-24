@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('HASHID_CONNECTION', 'hashids_integer'),
+    'default' => env('HASHID_CONNECTION'),
 
     /*
     |--------------------------------------------------------------------------
@@ -41,14 +41,14 @@ return [
 
         'hashids_integer' => [
             'driver' => 'hashids_integer',
-            'salt' => env('HASHIDS_INTEGER_SALT', ''),
-            'min_length' => env('HASHIDS_INTEGER_MIN_LENGTH', 5),
+            'salt' => env('HASHIDS_INTEGER_SALT'),
+            'min_length' => env('HASHIDS_INTEGER_MIN_LENGTH'),
             'alphabet' => env('HASHIDS_INTEGER_ALPHABET', 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'),
         ],
 
         'hashids_hex' => [
             'driver' => 'hashids_hex',
-            'salt' => env('HASHIDS_HEX_SALT', ''),
+            'salt' => env('HASHIDS_HEX_SALT'),
             'min_length' => env('HASHIDS_HEX_MIN_LENGTH', 0),
             'alphabet' => env('HASHIDS_HEX_ALPHABET', 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890'),
         ],
