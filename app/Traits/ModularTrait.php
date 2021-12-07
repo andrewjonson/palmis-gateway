@@ -25,8 +25,6 @@ trait ModularTrait
                 static::addGlobalScope(new ModularScope($user));
                 $teamId = $user['team_id'];
                 $userId = $user['id'];
-                $userId = hashid_decode($userId);
-                $teamId = hashid_decode($teamId);
                 if (!app()->runningInConsole()) {
                     static::creating(function ($model) use($userId, $teamId) {
                         $model->team_id = $teamId;
