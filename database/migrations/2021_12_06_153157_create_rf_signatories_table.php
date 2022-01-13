@@ -1,0 +1,46 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateRfSignatoriesTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('rf_signatories', function (Blueprint $table) {
+            $table->id();
+            $table->string('pmcode')->unique();
+            $table->string('name')->nullable();
+            $table->string('rank')->nullable();
+            $table->string('afposmos')->nullable();
+            $table->string('unit')->nullable();
+            $table->string('designation')->nullable();
+            $table->string('position_office')->nullable();
+            $table->bigInteger('created_by')
+                ->nullable()
+                ->default(1);
+            $table->bigInteger('updated_by')
+                    ->nullable();
+            $table->bigInteger('deleted_by')
+                    ->nullable();
+            $table->SoftDeletes();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('rf_signatories');
+    }
+}
