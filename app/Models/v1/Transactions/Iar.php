@@ -21,7 +21,9 @@ class Iar extends BaseModel
         'invoice_nr',
         'invoice_date',
         'requisitioning_office_id',
-        'responsibility_center_code_id'
+        'responsibility_center_code_id',
+        'accountable_officer',
+        'officer_designation'
     ];
     protected $table = 'tr_iars';
 

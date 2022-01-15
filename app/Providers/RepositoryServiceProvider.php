@@ -3,7 +3,6 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\Eloquent\v1\BaseRepository;
-use App\Repositories\Interfaces\v1\EloquentRepositoryInterface;
 use App\Repositories\Eloquent\v1\References\FpaoRepository;
 use App\Repositories\Eloquent\v1\References\FssuRepository;
 use App\Repositories\Eloquent\v1\References\MakeRepository;
@@ -23,6 +22,7 @@ use App\Repositories\Eloquent\v1\References\FpaoUnitRepository;
 use App\Repositories\Eloquent\v1\References\MunicityRepository;
 use App\Repositories\Eloquent\v1\References\ProvinceRepository;
 use App\Repositories\Eloquent\v1\References\SupplierRepository;
+use App\Repositories\Interfaces\v1\EloquentRepositoryInterface;
 use App\Repositories\Eloquent\v1\References\ConditionRepository;
 use App\Repositories\Eloquent\v1\References\SignatoryRepository;
 use App\Repositories\Eloquent\v1\References\WarehouseRepository;
@@ -49,6 +49,7 @@ use App\Repositories\Eloquent\v1\References\AmmunitionDetailRepository;
 use App\Repositories\Eloquent\v1\References\AmmunitionSupplyRepository;
 use App\Repositories\Interfaces\v1\Transactions\IarRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\RisRepositoryInterface;
+use App\Repositories\Eloquent\v1\References\AmmunitionArticleRepository;
 use App\Repositories\Eloquent\v1\References\UnitOfMeasurementRepository;
 use App\Repositories\Interfaces\v1\References\DetailRepositoryInterface;
 use App\Repositories\Interfaces\v1\References\OfficeRepositoryInterface;
@@ -95,6 +96,7 @@ use App\Repositories\Eloquent\v1\References\AmmunitionHeadStumpMarkingRepository
 use App\Repositories\Eloquent\v1\References\IssuanceDirectiveConditionRepository;
 use App\Repositories\Interfaces\v1\References\AmmunitionDetailRepositoryInterface;
 use App\Repositories\Interfaces\v1\References\AmmunitionSupplyRepositoryInterface;
+use App\Repositories\Interfaces\v1\References\AmmunitionArticleRepositoryInterface;
 use App\Repositories\Interfaces\v1\References\UnitOfMeasurementRepositoryInterface;
 use App\Repositories\Interfaces\v1\References\AmmunitionCategoryRepositoryInterface;
 use App\Repositories\Interfaces\v1\References\ResponsibilityCodeRepositoryInterface;
@@ -155,6 +157,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(AmmunitionHeadStumpMarkingRepositoryInterface::class, AmmunitionHeadStumpMarkingRepository::class);
         $this->app->bind(SignatoryCoRepositoryInterface::class, SignatoryCoRepository::class);
         $this->app->bind(EndUserRepositoryInterface::class, EndUserRepository::class);
+        $this->app->bind(AmmunitionArticleRepositoryInterface::class, AmmunitionArticleRepository::class);
 
         //Transaction
         $this->app->bind(TallyInRepositoryInterface::class, TallyInRepository::class);

@@ -18,7 +18,8 @@ class AmmunitionNomenclature extends BaseModel
         'ammunition_classification_id',
         'ammunition_supply_id',
         'ammunition_detail_id',
-        'ammunition_head_stump_marking_id'
+        'ammunition_head_stump_marking_id',
+        'ammunition_article_id'
     ];
     protected $table = 'rf_ammunition_nomenclatures';
 
@@ -60,5 +61,10 @@ class AmmunitionNomenclature extends BaseModel
     public function ammunitionHeadStumpMarking()
     {
         return $this->belongsTo(AmmunitionHeadStumpMarking::class, 'ammunition_head_stump_marking_id', 'id');
+    }
+
+    public function ammunitionArticle()
+    {
+        return $this->belongsTo(AmmunitionArticle::class, 'ammunition_article_id');
     }
 }

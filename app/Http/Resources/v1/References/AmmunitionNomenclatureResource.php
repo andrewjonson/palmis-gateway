@@ -7,6 +7,7 @@ use App\Http\Resources\v1\References\AmmunitionUomResource;
 use App\Http\Resources\v1\References\AmmunitionTypeResource;
 use App\Http\Resources\v1\References\AmmunitionDetailResource;
 use App\Http\Resources\v1\References\AmmunitionSupplyResource;
+use App\Http\Resources\v1\References\AmmunitionArticleResource;
 use App\Http\Resources\v1\References\AmmunitionCategoryResource;
 use App\Http\Resources\v1\References\AmmunitionSizeCaliberResource;
 use App\Http\Resources\v1\References\AmmunitionSizeCalliberResource;
@@ -34,6 +35,7 @@ class AmmunitionNomenclatureResource extends JsonResource
             'ammunition_supply' => new AmmunitionSupplyResource($this->ammunitionSupply),
             'ammunition_detail' => new AmmunitionDetailResource($this->ammunitionDetail),
             'ammunition_head_stump_marking' => new AmmunitionHeadStumpMarkingResource($this->ammunitionHeadStumpMarking),
+            'ammunition_article' => new AmmunitionArticleResource($this->ammunitionArticle)
         ];
     }
 }

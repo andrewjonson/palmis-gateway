@@ -54,6 +54,7 @@ $router->group(['prefix' => 'api/'.config('app.version').'/sumis'], function() u
         resource('/type', 'References\AmmunitionTypeController', $router);
         resource('/uom', 'References\AmmunitionUomController', $router);
         resource('/head-stump-marking', 'References\AmmunitionHeadStumpMarkingController', $router);
+        resource('/articles', 'References\AmmunitionArticleController', $router);
     });
 
     //transactions
@@ -78,6 +79,7 @@ $router->group(['prefix' => 'api/'.config('app.version').'/sumis'], function() u
         $router->get('/get-inventory/{id}', 'v1\Transactions\IarController@getInventoryByTallyId');
         $router->get('/tally-inventory/{id}', 'v1\Transactions\IarController@getByTallyId');
         $router->get('/get-list', 'v1\Transactions\IarController@getIarList');
+        $router->get('/rpci/{id}', 'v1\Transactions\IarController@getRpci');
     });
 
     // Stock Card

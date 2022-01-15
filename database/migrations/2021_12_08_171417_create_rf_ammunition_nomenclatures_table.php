@@ -57,6 +57,11 @@ class CreateRfAmmunitionNomenclaturesTable extends Migration
                 ->constrained('rf_ammunition_head_stump_markings')
                 ->onDelete('cascade');
 
+            $table->foreignId('ammunition_article_id')
+                ->nullable()
+                ->constrained('rf_ammunition_articles')
+                ->onDelete('cascade');
+
             $table->bigInteger('team_id')
                     ->nullable();
             $table->bigInteger('created_by')

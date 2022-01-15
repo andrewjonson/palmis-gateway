@@ -43,6 +43,9 @@ class CreateTrIarsTable extends Migration
                 ->constrained('rf_responsibility_codes')
                 ->onDelete('cascade');
 
+            $table->string('accountable_officer');
+            $table->string('officer_designation');
+
             $table->bigInteger('team_id')
                     ->nullable();
             $table->bigInteger('created_by')

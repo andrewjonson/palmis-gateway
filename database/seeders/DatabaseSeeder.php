@@ -25,12 +25,15 @@ use Database\Seeders\v1\References\SignatoryCoTableSeeder;
 use Database\Seeders\v1\References\ManufacturerTableSeeder;
 use Database\Seeders\v1\References\ServicingFpaoTableSeeder;
 use Database\Seeders\v1\References\ClassificationTableSeeder;
+use Database\Seeders\v1\References\AmmunitionDetailsTableSeeder;
 use Database\Seeders\v1\References\UnitOfMeasurementTableSeeder;
+use Database\Seeders\v1\References\AmmunitionArticlesTableSeeder;
 use Database\Seeders\v1\References\ResponsibilityCodeTableSeeder;
 use Database\Seeders\v1\References\AmmunitionSizeCaliberTableSeeder;
 use Database\Seeders\v1\References\AmmunitionNomenclatureTableSeeder;
 use Database\Seeders\v1\References\IssuanceDirectivePurposeTableSeeder;
 use Database\Seeders\v1\References\IssuanceDirectiveConditionTableSeeder;
+use Database\Seeders\v1\References\AmmunitionHeadStumpMarkingsTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -60,6 +63,9 @@ class DatabaseSeeder extends Seeder
         $this->call(IssuanceDirectivePurposeTableSeeder::class);
         $this->call(IssuanceDirectiveConditionTableSeeder::class);
         $this->call(AmmunitionSizeCaliberTableSeeder::class);
+        $this->call(AmmunitionDetailsTableSeeder::class);
+        $this->call(AmmunitionHeadStumpMarkingsTableSeeder::class);
+        $this->call(AmmunitionArticlesTableSeeder::class);
         $this->call(FpaoUnitTableSeeder::class);
         $this->call(AmmunitionNomenclatureTableSeeder::class);
         $this->call(EndUserTableSeeder::class);

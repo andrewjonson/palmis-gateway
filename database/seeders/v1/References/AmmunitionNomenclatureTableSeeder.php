@@ -26,7 +26,10 @@ class AmmunitionNomenclatureTableSeeder extends Seeder
                 'ammunition_type_id' => 41,
                 'ammunition_uom_id' => 1,
                 'ammunition_classification_id' => 1,
-                'ammunition_supply_id' => 1
+                'ammunition_supply_id' => 1,
+                'ammunition_detail_id' => 1,
+                'ammunition_head_stump_marking_id' => 1,
+                'ammunition_article_id' => 1
             ],
             (object)[
                 'ammunition_name' => 'Ctg, 76mm: AP-T, M339', 
@@ -35,7 +38,10 @@ class AmmunitionNomenclatureTableSeeder extends Seeder
                 'ammunition_type_id' => 41,
                 'ammunition_uom_id' => 1,
                 'ammunition_classification_id' => 1,
-                'ammunition_supply_id' => 1
+                'ammunition_supply_id' => 1,
+                'ammunition_detail_id' => 1,
+                'ammunition_head_stump_marking_id' => 1,
+                'ammunition_article_id' => 1
             ],
             (object)[
                 'ammunition_name' => 'Ctg, 76mm, ARMD C HESH', 
@@ -44,7 +50,10 @@ class AmmunitionNomenclatureTableSeeder extends Seeder
                 'ammunition_type_id' => 41,
                 'ammunition_uom_id' => 1,
                 'ammunition_classification_id' => 1,
-                'ammunition_supply_id' => 1
+                'ammunition_supply_id' => 1,
+                'ammunition_detail_id' => 1,
+                'ammunition_head_stump_marking_id' => 1,
+                'ammunition_article_id' => 1
             ],
             (object)[
                 'ammunition_name' => 'Ctg, 76mm, ARMD C HESH, L29A3', 
@@ -53,7 +62,10 @@ class AmmunitionNomenclatureTableSeeder extends Seeder
                 'ammunition_type_id' => 41,
                 'ammunition_uom_id' => 1,
                 'ammunition_classification_id' => 1,
-                'ammunition_supply_id' => 1
+                'ammunition_supply_id' => 1,
+                'ammunition_detail_id' => 1,
+                'ammunition_head_stump_marking_id' => 1,
+                'ammunition_article_id' => 1
             ],
         ];
 
@@ -66,6 +78,9 @@ class AmmunitionNomenclatureTableSeeder extends Seeder
                 'ammunition_uom_id' => $seed->ammunition_uom_id,
                 'ammunition_classification_id' => $seed->ammunition_classification_id,
                 'ammunition_supply_id' => $seed->ammunition_supply_id,
+                'ammunition_detail_id' => $seed->ammunition_detail_id,
+                'ammunition_head_stump_marking_id' => $seed->ammunition_head_stump_marking_id,
+                'ammunition_article_id' => $seed->ammunition_article_id,
                 'created_by' => 1
             ]);
         }

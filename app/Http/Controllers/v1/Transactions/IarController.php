@@ -5,14 +5,15 @@ namespace App\Http\Controllers\v1\Transactions;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Traits\ResponseTrait;
-use App\Http\Controllers\Controller;
 use App\Models\v1\Transactions\Iar;
+use App\Http\Controllers\Controller;
 use App\Models\v1\References\DocSetting;
 use App\Models\v1\References\SignatoryCo;
 use App\Models\v1\Transactions\Inventory;
 use App\Models\v1\Transactions\StockCard;
 use Illuminate\Auth\Access\AuthorizationException;
 use App\Http\Resources\v1\Transactions\IarResource;
+use App\Http\Resources\v1\Transactions\RpciResource;
 use App\Http\Resources\v1\Transactions\InventoryResource;
 use App\Http\Resources\v1\Transactions\TallyInInventoryResource;
 use App\Repositories\Interfaces\v1\Transactions\IarRepositoryInterface;
@@ -128,7 +129,9 @@ class IarController extends Controller
             'invoice_nr',
             'invoice_date',
             'requisitioning_office_id',
-            'responsibility_center_code_id'
+            'responsibility_center_code_id',
+            'accountable_officer',
+            'officer_designation'
         ]);
 
         $createIar = $this->modelRepository->create($dataIar);
@@ -315,4 +318,14 @@ class IarController extends Controller
         }
     }
     
+    public function getRpci($id)
+    {
+        try {
+            $id = hashid_decode($id);
+            $iar = $this->modelRepository->find($id);
+            return new RpciResource($iar);
+        } catch(\Exception $e) {
+            return $this->failedResponse($e->getMessage(), SERVER_ERROR);
+        }
+    }
 }
