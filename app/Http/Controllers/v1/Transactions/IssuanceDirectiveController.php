@@ -8,11 +8,12 @@ use App\Traits\ResponseTrait;
 use App\Models\v1\Transactions\Ris;
 use App\Models\v1\References\DocSetting;
 use App\Models\v1\References\SignatoryCo;
+use App\Models\v1\Transactions\Inventory;
 use App\Models\v1\Transactions\StockCard;
-use Illuminate\Auth\Access\AuthorizationException;
 use App\Models\v1\Transactions\IssuanceDirective;
-use Laravel\Lumen\Routing\Controller as BaseController;
+use Illuminate\Auth\Access\AuthorizationException;
 use App\Models\v1\Transactions\IssuanceDirectiveItem;
+use Laravel\Lumen\Routing\Controller as BaseController;
 use App\Http\Resources\v1\Transactions\IssuanceDirectiveResource;
 use App\Repositories\Interfaces\v1\Transactions\RisRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\InventoryRepositoryInterface;
@@ -65,23 +66,23 @@ class IssuanceDirectiveController extends BaseController
         $stockCard = hashid_decode($request->stock_card_id);
         $issuanceDirectiveId = hashid_decode($request->issuance_directive_id);
         try {
-            $inventory = StockCard::join('tr_inventories', 'tr_inventories.id', '=', 'tr_stock_cards.inventory_id')
-                                    ->where('tr_stock_cards.id', $stockCard)
-                                    ->first();
+            $inventory = Inventory::whereHas('stockCard', function($query) use($stockCard) {
+                $query->where('id', $stockCard);
+            })->first();
 
             if(!$inventory) {
                 throw new AuthorizationException;
             }
 
             $temp = $inventory->temp_balance_qty - $request->quantity;
-
+            
             if ($temp >= 0) {
                 $this->idItemRepository->create([
                     'issuance_directive_id' => $issuanceDirectiveId,
                     'stock_card_id' => $stockCard,
                     'quantity' => $request->quantity
                 ]);
-    
+
                 $updateInventory = $this->inventoryRespository->update([
                     'temp_balance_qty' => $temp
                 ], $inventory->id);
