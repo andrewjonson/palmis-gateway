@@ -9,12 +9,14 @@ use App\Models\v1\Transactions\Ris;
 use App\Models\v1\References\DocSetting;
 use App\Models\v1\References\SignatoryCo;
 use App\Models\v1\Transactions\StockCard;
-use Illuminate\Auth\Access\AuthorizationException;
 use App\Models\v1\Transactions\IssuanceDirective;
-use Laravel\Lumen\Routing\Controller as BaseController;
+use Illuminate\Auth\Access\AuthorizationException;
 use App\Models\v1\Transactions\IssuanceDirectiveItem;
+use Laravel\Lumen\Routing\Controller as BaseController;
+use App\Http\Resources\v1\Transactions\TallyOutResource;
 use App\Http\Resources\v1\Transactions\IssuanceDirectiveResource;
 use App\Repositories\Interfaces\v1\Transactions\RisRepositoryInterface;
+use App\Repositories\Interfaces\v1\Transactions\TallyOutRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\InventoryRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\IssuanceDirectiveRepositoryInterface;
 use App\Repositories\Interfaces\v1\Reports\IssuanceDirectiveReportRepositoryInterface;
@@ -29,7 +31,8 @@ class IssuanceDirectiveController extends BaseController
         IssuanceDirectiveItemRepositoryInterface $idItemRepository,
         InventoryRepositoryInterface $inventoryRespository, 
         IssuanceDirectiveReportRepositoryInterface $reportRepository,
-        RisRepositoryInterface $risRepository
+        RisRepositoryInterface $risRepository,
+        TallyOutRepositoryInterface $tallyoutRepository
     )
     {
         $this->modelRepository = $idRepository;
@@ -37,9 +40,11 @@ class IssuanceDirectiveController extends BaseController
         $this->inventoryRespository = $inventoryRespository;
         $this->reportRepository = $reportRepository;
         $this->risRepository = $risRepository;
+        $this->tallyoutRepository = $tallyoutRepository;
         $this->modelName = 'Issuance Directive';
         $this->idModelName = 'Issuance Directive Item';
         $this->resource = IssuanceDirectiveResource::class;
+        $this->tallyOutResource = TallyOutResource::class;
     }
 
     /**
@@ -54,6 +59,10 @@ class IssuanceDirectiveController extends BaseController
         $idReport = $this->createIssuanceDirectiveReport($request, $issuanceId);
 
         $ris = $this->createRis($request, $issuanceId);
+
+        // $risId = $ris->id;
+
+        // $tallyOut = $this->createTallyOut($request, $risid);
 
         $issuanceDirectiveId = hashid_encode($issuanceId);
 
@@ -127,6 +136,24 @@ class IssuanceDirectiveController extends BaseController
         $id = hashid_decode($id);
        
         $data = $this->modelRepository->find($id);
+
+        $items = IssuanceDirectiveItem::select('tr_issuance_directive_items.quantity as quantity', 'tr_issuance_directive_items.id as item_id', 'temp_balance_qty', 'tr_inventories.id as inventory_id')
+                                    ->join('tr_stock_cards', 'tr_stock_cards.id', '=', 'tr_issuance_directive_items.stock_card_id')
+                                    ->join('tr_inventories', 'tr_inventories.id', '=', 'tr_stock_cards.inventory_id')
+                                    ->where('tr_issuance_directive_items.issuance_directive_id', $id)
+                                    ->get();
+
+        foreach ($items as $item) {
+            $temp = $item['temp_balance_qty'] + $item['quantity'];
+
+            $updateInventory = $this->inventoryRespository->update([
+                'temp_balance_qty' => $temp
+            ], $item['inventory_id']);
+
+            $item = $this->idItemRepository->find($item['item_id']);
+            $item->forceDelete();
+        }
+
         if (!$data) {
             throw new AuthorizationException;
         }
@@ -242,6 +269,31 @@ class IssuanceDirectiveController extends BaseController
 
         return $createRis;
     }
+
+    /**
+     * Create Tally Out
+     */
+
+     public function createTallyOut(Request $request, $risId) 
+     {
+        $request->merge([
+            'ris_id' => $risId,
+            'unservisable' => 'false'
+        ]);
+
+        $dataTallyOut = $request->only([
+            'ris_id',
+            'unservisable'
+        ]);
+
+        $createTallyOut = $this->tallyoutRepository->create($dataTallyOut);
+
+        if(!$createTallyOut) {
+            return $this->failedResponse(trans('validation.server_error'), SERVER_ERROR);
+        }
+
+        return $createTallyOut;
+     }
 
     /**
      * Get List of Issuance Directive
