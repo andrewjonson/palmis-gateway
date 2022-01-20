@@ -119,5 +119,5 @@ $router->group(['prefix' => 'api/'.config('app.version').'/sumis'], function() u
     //STD
     resource('/stds', 'Transactions\StdController', $router);
     $router->post('/create-std-item/{stdId}', 'v1\Transactions\StdItemController@createStdItem');
-    $router->delete('/delete-std-item/{stdId}', 'v1\Transactions\StdItemController@deleteStdItem');
+    $router->delete('/delete-std-item/{stdItemId}', 'v1\Transactions\StdItemController@deleteStdItem');
 });

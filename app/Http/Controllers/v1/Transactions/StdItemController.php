@@ -5,7 +5,6 @@ namespace App\Http\Controllers\v1\Transactions;
 use Illuminate\Http\Request;
 use App\Traits\ResponseTrait;
 use Laravel\Lumen\Routing\Controller;
-use App\Models\v1\Transactions\StdItem;
 use App\Repositories\Interfaces\v1\Transactions\StdItemRepositoryInterface;
 
 class StdItemController extends Controller
@@ -45,11 +44,12 @@ class StdItemController extends Controller
         }
     }
 
-    public function deleteStdItem($stdId)
+    public function deleteStdItem($stdItemId)
     {
         try {
-            $stdId = hashid_decode($stdId);
-            $stdItem = StdItem::where('std_id', $stdId)->delete();
+            $stdItemId = hashid_decode($stdItemId);
+            $stdItem = $this->modelRepository->find($stdItemId);
+            $stdItem->delete();
             return $this->successResponse('STD Item Deleted Successfully', DATA_OK);
         } catch(\Exception $e) {
             return $this->failedResponse($e->getMessage(), SERVER_ERROR);
