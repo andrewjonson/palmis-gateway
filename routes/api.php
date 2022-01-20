@@ -115,4 +115,9 @@ $router->group(['prefix' => 'api/'.config('app.version').'/sumis'], function() u
 
     //Dashboard
     $router->get('/dashboard/per-pamu/{id}', 'v1\Dashboard\DashboardController@getListNomenclaturePerPamu');
+
+    //STD
+    resource('/stds', 'Transactions\StdController', $router);
+    $router->post('/create-std-item/{stdId}', 'v1\Transactions\StdItemController@createStdItem');
+    $router->delete('/delete-std-item/{stdId}', 'v1\Transactions\StdItemController@deleteStdItem');
 });
