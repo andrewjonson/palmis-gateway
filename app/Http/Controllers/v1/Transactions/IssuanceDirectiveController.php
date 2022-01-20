@@ -41,7 +41,7 @@ class IssuanceDirectiveController extends BaseController
         $this->inventoryRespository = $inventoryRespository;
         $this->reportRepository = $reportRepository;
         $this->risRepository = $risRepository;
-        $this->tallyoutRepository = $tallyoutRepository;
+        // $this->tallyoutRepository = $tallyoutRepository;
         $this->modelName = 'Issuance Directive';
         $this->idModelName = 'Issuance Directive Item';
         $this->resource = IssuanceDirectiveResource::class;
