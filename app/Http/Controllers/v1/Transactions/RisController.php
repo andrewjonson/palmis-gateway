@@ -5,11 +5,12 @@ namespace App\Http\Controllers\v1\Transactions;
 use Illuminate\Http\Request;
 use App\Traits\ResponseTrait;
 use Illuminate\Auth\Access\AuthorizationException;
-use Laravel\Lumen\Routing\Controller as BaseController;
 use App\Http\Resources\v1\Transactions\RisResource;
 use App\Http\Resources\v1\Transactions\RisItemResource;
+use Laravel\Lumen\Routing\Controller as BaseController;
 use App\Http\Resources\v1\Transactions\RisIdItemResource;
 use App\Repositories\Interfaces\v1\Transactions\RisRepositoryInterface;
+use App\Repositories\Interfaces\v1\Transactions\TallyOutRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\InventoryRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\StockCardRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\IssuanceDirectiveRepositoryInterface;
@@ -22,12 +23,18 @@ class RisController extends BaseController
     public function __construct(
         RisRepositoryInterface $risRepository,
         IssuanceDirectiveItemRepositoryInterface $directiveitemRepository,
-        IssuanceDirectiveRepositoryInterface $issuanceDirectiveRepository
+        IssuanceDirectiveRepositoryInterface $issuanceDirectiveRepository,
+        TallyOutRepositoryInterface $tallyoutRepository,
+        StockCardRepositoryInterface $stockcardRepository,
+        InventoryRepositoryInterface $inventoryRepository
         )
     {
         $this->modelRepository = $risRepository;
         $this->directiveitemRepository = $directiveitemRepository;
         $this->issuanceDirective = $issuanceDirectiveRepository;
+        $this->tallyoutRepository = $tallyoutRepository;
+        $this->stockcardRepository = $stockcardRepository;
+        $this->inventoryRepository = $inventoryRepository;
         $this->modelName = 'RIS';
         $this->resource = RisResource::class;
         $this->risIdItemResource = RisIdItemResource::class;
@@ -44,19 +51,31 @@ class RisController extends BaseController
 
         $dataDirective = $request->issuance_directive_item;
         foreach ($dataDirective as $item) {
+            $itemIssuance = $this->directiveitemRepository
+                            ->getModel()
+                            ->where('id', hashid_decode($item['id']))
+                            ->first();
+
             $directiveItem = $this->directiveitemRepository
                     ->update([
                         'remarks' => $item['remarks'],
                     ], hashid_decode($item['id']));
 
+            $tallyout = $this->tallyoutRepository
+                    ->create([
+                        'ris_id' => $risId,
+                        'issuance_directive_item_id' => hashid_decode($item['id']),
+                        'unservisable' => $item['unservisable']
+                    ]);
+
             $stockCardId = $directiveItem->stock_card_id;
-            $stockCard = $this->stockCardRepository->find($stockCardId);
+            $stockCard = $this->stockcardRepository->find($stockCardId);
             $inventoryId = $stockCard->inventory_id;
             $inventory = $this->inventoryRepository->find($inventoryId);
             
             $quantity = $inventory->quantity;
             $balance = $inventory->temp_balance_qty;
-            $total = $quantity - $balance;
+            $total = $quantity - $itemIssuance->quantity;
             
             $dataInventory = $inventory->update(['quantity' => $total]);
         }

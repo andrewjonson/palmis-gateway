@@ -29,6 +29,7 @@ use App\Repositories\Eloquent\v1\References\WarehouseRepository;
 use App\Repositories\Eloquent\v1\Transactions\TallyInRepository;
 use App\Repositories\Eloquent\v1\References\DocSettingRepository;
 use App\Repositories\Eloquent\v1\Reports\TallyInReportRepository;
+use App\Repositories\Eloquent\v1\Transactions\TallyOutRepository;
 use App\Repositories\Eloquent\v1\References\FundClusterRepository;
 use App\Repositories\Eloquent\v1\References\SignatoryCoRepository;
 use App\Repositories\Eloquent\v1\Transactions\InventoryRepository;
@@ -75,6 +76,7 @@ use App\Repositories\Interfaces\v1\Transactions\TallyInRepositoryInterface;
 use App\Repositories\Eloquent\v1\References\AmmunitionSizeCaliberRepository;
 use App\Repositories\Interfaces\v1\References\DocSettingRepositoryInterface;
 use App\Repositories\Interfaces\v1\Reports\TallyInReportRepositoryInterface;
+use App\Repositories\Interfaces\v1\Transactions\TallyOutRepositoryInterface;
 use App\Repositories\Eloquent\v1\References\AmmunitionNomenclatureRepository;
 use App\Repositories\Eloquent\v1\References\AmmunitionSizeCalliberRepository;
 use App\Repositories\Interfaces\v1\References\FundClusterRepositoryInterface;
@@ -167,6 +169,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(IssuanceDirectiveRepositoryInterface::class, IssuanceDirectiveRepository::class);
         $this->app->bind(IssuanceDirectiveItemRepositoryInterface::class, IssuanceDirectiveItemRepository::class);
         $this->app->bind(RisRepositoryInterface::class, RisRepository::class);
+        $this->app->bind(TallyOutRepositoryInterface::class, TallyOutRepository::class);
 
         //Report
         $this->app->bind(TallyInReportRepositoryInterface::class, TallyInReportRepository::class);

@@ -72,6 +72,7 @@ $router->group(['prefix' => 'api/'.config('app.version').'/sumis'], function() u
     $router->get('/report/iar/{id}', 'v1\Reports\IarReportController@getReportIar');
     $router->get('/report/issuance-directive/{id}', 'v1\Reports\IssuanceDirectiveReportController@getReportIssuanceDirective');
     $router->get('/report/stock-card/{id}', 'v1\Reports\StockCardReportController@getReportStockCard');
+    $router->get('/report/tally-out/{id}', 'v1\Transactions\TallyOutController@getTallyOutReport');
     
     // IAR
     $router->group(['prefix' => 'iar'], function() use($router) {
