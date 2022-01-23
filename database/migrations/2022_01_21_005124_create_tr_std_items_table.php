@@ -20,7 +20,8 @@ class CreateTrStdItemsTable extends Migration
             $table->foreignId('receiving_fpao_id')->constrained('rf_fpaos');
             $table->foreignId('cognizant_fssu_id')->constrained('rf_fssus');
             $table->foreignId('receiving_fssu_id')->constrained('rf_fssus');
-            $table->foreignId('inventory_id')->constrained('tr_inventories');
+            $table->foreignId('stock_card_id')->constrained('tr_stock_cards');
+            $table->integer('quantity');
             $table->bigInteger('team_id')
                     ->nullable();
             $table->bigInteger('created_by')

@@ -34,11 +34,22 @@ class StdController extends Controller
         $std_number = 'STD'.'-'.$year.'-'.$monthDay.'-'.sprintf("%04d", $countStd);
 
         try {
-            $request['std_number'] = $std_number;
-            $this->modelRepository->create($request->all());
+            $this->modelRepository->create([
+                'std_number' => $std_number,
+                'authority' => $request->authority,
+                'issuance_directive_purpose_id' => hashid_decode($request->purpose_id),
+                'date' => $request->date
+            ]);
             return $this->successResponse('STD Created Successfully', DATA_CREATED);
         } catch(\Exception $e) {
             return $this->failedResponse($e->getMessage(), SERVER_ERROR);
         }
+    }
+
+    public function getStdById($stdId)
+    {
+        $id = hashid_decode($stdId);
+        $std = $this->modelRepository->find($id);
+        return new $this->resource($std);
     }
 }

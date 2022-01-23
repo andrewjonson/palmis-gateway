@@ -16,9 +16,9 @@ class StdItemResource extends JsonResource
     {
         return [
             'id' => hashid_encode($this->id),
-            'lot_number' => $this->inventory->lot_number,
-            'nomenclature' => $this->inventory->ammunitionNomenclature->ammunition_name,
-            'qty' => $this->inventory->quantity,
+            'lot_number' => $this->stockCard->inventory->lot_number,
+            'nomenclature' => $this->stockCard->inventory->ammunitionNomenclature->ammunition_name,
+            'qty' => $this->quantity,
             'cognizant_fpao' => $this->cognizantFpao->name,
             'receiving_fpao' => $this->receivingFpao->name,
             'cognizant_fssu' => $this->cognizantFssu->name,

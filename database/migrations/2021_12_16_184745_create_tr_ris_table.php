@@ -21,7 +21,9 @@ class CreateTrRisTable extends Migration
                 ->onDelete('cascade');
             $table->string('ris_nr');
             $table->boolean('status')->default(false);                                                                                                                 
-
+            $table->string('entity_name')->nullable();
+            $table->foreignId('responsibility_center_code_id')->nullable()->constrained('rf_responsibility_codes');
+            $table->foreignId('fund_cluster_id')->nullable()->constrained('rf_fund_clusters');
             $table->bigInteger('team_id')
                     ->nullable();
             $table->bigInteger('created_by')

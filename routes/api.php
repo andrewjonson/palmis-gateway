@@ -107,6 +107,7 @@ $router->group(['prefix' => 'api/'.config('app.version').'/sumis'], function() u
     $router->get('/toggle-doc-setting', 'v1\References\DocSettingController@getDocSetting');
 
     // RIS
+    $router->post('/ris/create/{id}', 'v1\Transactions\RisController@createRis');
     $router->get('/ris/get-list', 'v1\Transactions\RisController@getRisList');
     $router->get('/ris/search/{id}', 'v1\Transactions\RisController@getRisById');
 
@@ -119,5 +120,6 @@ $router->group(['prefix' => 'api/'.config('app.version').'/sumis'], function() u
     //STD
     resource('/stds', 'Transactions\StdController', $router);
     $router->post('/create-std-item/{stdId}', 'v1\Transactions\StdItemController@createStdItem');
+    $router->get('/get-std-by-id/{stdId}', 'v1\Transactions\StdController@getStdById');
     $router->delete('/delete-std-item/{stdItemId}', 'v1\Transactions\StdItemController@deleteStdItem');
 });

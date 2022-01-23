@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTrStdsTable extends Migration
+class CreateTrRsmisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateTrStdsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tr_stds', function (Blueprint $table) {
+        Schema::create('tr_rsmis', function (Blueprint $table) {
             $table->id();
-            $table->string('std_number');
-            $table->string('authority');
-            $table->foreignId('issuance_directive_purpose_id')->constrained('rf_issuance_directive_purposes');
+            $table->string('serial_number');
             $table->date('date');
+            $table->foreignId('ris_id')->constrained('tr_ris');
             $table->bigInteger('team_id')
                     ->nullable();
             $table->bigInteger('created_by')
@@ -40,6 +39,6 @@ class CreateTrStdsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tr_stds');
+        Schema::dropIfExists('tr_rsmis');
     }
 }

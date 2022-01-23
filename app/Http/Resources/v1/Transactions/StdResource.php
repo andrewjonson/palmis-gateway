@@ -4,6 +4,7 @@ namespace App\Http\Resources\v1\Transactions;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\v1\Transactions\StdItemResource;
+use App\Http\Resources\v1\References\IssuanceDirectivePurposeResource;
 
 class StdResource extends JsonResource
 {
@@ -19,7 +20,7 @@ class StdResource extends JsonResource
             'id' => hashid_encode($this->id),
             'std_number' => $this->std_number,
             'authority' => $this->authority,
-            'purpose' => $this->purpose,
+            'purpose' => new IssuanceDirectivePurposeResource($this->issuanceDirectivePurpose),
             'date' => $this->date,
             'items' => StdItemResource::collection($this->stdItems)
         ];

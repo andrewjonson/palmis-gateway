@@ -6,11 +6,12 @@ use App\Models\BaseModel;
 use App\Models\v1\References\Fpao;
 use App\Models\v1\References\Fssu;
 use App\Models\v1\References\FpaoUnit;
+use Illuminate\Database\Eloquent\Model;
 use App\Models\v1\Transactions\IssuanceDirectiveItem;
 use App\Models\v1\References\IssuanceDirectivePurpose;
 use App\Models\v1\References\IssuanceDirectiveCondition;
 
-class IssuanceDirective extends BaseModel
+class IssuanceDirective extends Model
 {
     protected $fillable = [
         'issuance_directive_nr',
