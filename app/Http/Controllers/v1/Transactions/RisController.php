@@ -10,6 +10,7 @@ use App\Http\Resources\v1\Transactions\RisItemResource;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use App\Http\Resources\v1\Transactions\RisIdItemResource;
 use App\Repositories\Interfaces\v1\Transactions\RisRepositoryInterface;
+use App\Repositories\Interfaces\v1\Transactions\IarRisRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\TallyOutRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\InventoryRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\StockCardRepositoryInterface;
@@ -26,7 +27,8 @@ class RisController extends BaseController
         IssuanceDirectiveRepositoryInterface $issuanceDirectiveRepository,
         TallyOutRepositoryInterface $tallyoutRepository,
         StockCardRepositoryInterface $stockcardRepository,
-        InventoryRepositoryInterface $inventoryRepository
+        InventoryRepositoryInterface $inventoryRepository,
+        IarRisRepositoryInterface $iarrisRepository
         )
     {
         $this->modelRepository = $risRepository;
@@ -35,6 +37,7 @@ class RisController extends BaseController
         $this->tallyoutRepository = $tallyoutRepository;
         $this->stockcardRepository = $stockcardRepository;
         $this->inventoryRepository = $inventoryRepository;
+        $this->iarrisRepository = $iarrisRepository;
         $this->modelName = 'RIS';
         $this->resource = RisResource::class;
         $this->risIdItemResource = RisIdItemResource::class;
@@ -78,6 +81,12 @@ class RisController extends BaseController
             $total = $quantity - $itemIssuance->quantity;
             
             $dataInventory = $inventory->update(['quantity' => $total]);
+
+            $airRis = $this->iarrisRepository
+                    ->create([
+                        'stock_card_id' => $stockCardId,
+                        'reference' => $data->ris_nr
+                    ]);
         }
         $ris = $data->update(['status' => true]);
         $issuance_directive = $issuanceDirective->update(['is_released' => true]);
