@@ -11,6 +11,6 @@ class Rsmi extends BaseModel
     use ModularTrait;
     use SoftDeletes;
 
-    protected $fillable = [];
-    protected $table = '';
+    protected $fillable = ['ris_id', 'date', 'serial_number'];
+    protected $table = 'tr_rsmis';
 }
