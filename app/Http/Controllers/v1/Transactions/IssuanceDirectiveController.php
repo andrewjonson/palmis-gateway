@@ -17,7 +17,6 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 use App\Http\Resources\v1\Transactions\TallyOutResource;
 use App\Http\Resources\v1\Transactions\IssuanceDirectiveResource;
 use App\Repositories\Interfaces\v1\Transactions\RisRepositoryInterface;
-// use App\Repositories\Interfaces\v1\Transactions\TallyOutRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\InventoryRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\IssuanceDirectiveRepositoryInterface;
 use App\Repositories\Interfaces\v1\Reports\IssuanceDirectiveReportRepositoryInterface;
@@ -33,7 +32,6 @@ class IssuanceDirectiveController extends BaseController
         InventoryRepositoryInterface $inventoryRespository, 
         IssuanceDirectiveReportRepositoryInterface $reportRepository,
         RisRepositoryInterface $risRepository,
-        // TallyOutRepositoryInterface $tallyoutRepository
     )
     {
         $this->modelRepository = $idRepository;
@@ -41,11 +39,9 @@ class IssuanceDirectiveController extends BaseController
         $this->inventoryRespository = $inventoryRespository;
         $this->reportRepository = $reportRepository;
         $this->risRepository = $risRepository;
-        // $this->tallyoutRepository = $tallyoutRepository;
         $this->modelName = 'Issuance Directive';
         $this->idModelName = 'Issuance Directive Item';
         $this->resource = IssuanceDirectiveResource::class;
-        // $this->tallyOutResource = TallyOutResource::class;
     }
 
     /**
@@ -270,31 +266,6 @@ class IssuanceDirectiveController extends BaseController
 
         return $createRis;
     }
-
-    /**
-     * Create Tally Out
-     */
-
-    //  public function createTallyOut(Request $request, $risId) 
-    //  {
-    //     $request->merge([
-    //         'ris_id' => $risId,
-    //         'unservisable' => 'false'
-    //     ]);
-
-    //     $dataTallyOut = $request->only([
-    //         'ris_id',
-    //         'unservisable'
-    //     ]);
-
-    //     $createTallyOut = $this->tallyoutRepository->create($dataTallyOut);
-
-    //     if(!$createTallyOut) {
-    //         return $this->failedResponse(trans('validation.server_error'), SERVER_ERROR);
-    //     }
-
-    //     return $createTallyOut;
-    //  }
 
     /**
      * Get List of Issuance Directive

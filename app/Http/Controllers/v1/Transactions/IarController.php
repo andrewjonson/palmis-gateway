@@ -18,6 +18,7 @@ use App\Http\Resources\v1\Transactions\InventoryResource;
 use App\Http\Resources\v1\Transactions\TallyInInventoryResource;
 use App\Repositories\Interfaces\v1\Transactions\IarRepositoryInterface;
 use App\Repositories\Interfaces\v1\Reports\IarReportRepositoryInterface;
+use App\Repositories\Interfaces\v1\Transactions\IarRisRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\TallyInRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\InventoryRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\StockCardRepositoryInterface;
@@ -34,6 +35,7 @@ class IarController extends Controller
         TallyInRepositoryInterface $tallyInRepository,
         IarReportRepositoryInterface $reportRepository,
         StockCardReportRepositoryInterface $stockcardreportRepository,
+        IarRisRepositoryInterface $iarrisRepository,
         Request $request
     )
     {
@@ -43,6 +45,7 @@ class IarController extends Controller
         $this->tallyInRepository = $tallyInRepository;
         $this->reportRepository = $reportRepository;
         $this->stockcardreportRepository = $stockcardreportRepository;
+        $this->iarrisRepository = $iarrisRepository;
         $this->inventoryResource = InventoryResource::class;
         $this->resource = IarResource::class;
         $this->tallyInInventoryResource = TallyInInventoryResource::class;
@@ -76,9 +79,15 @@ class IarController extends Controller
                     $inventory_id = hashid_decode($update['inventory_id']);
 
                     // create stock card
-                    $stockCard = $this->createStockCard($request, $inventory_id);
+                    $stockCard = $this->createStockCard($request, $iarId, $inventory_id);
                     
                     $stockCardId = $stockCard->id;
+
+                    $airRis = $this->iarrisRepository
+                                ->create([
+                                    'stock_card_id' => $stockCardId,
+                                    'reference' => $iar->iar_nr,
+                                ]);
 
                     $stockCardReport = $this->createStockCardReport($request, $stockCardId);
 
