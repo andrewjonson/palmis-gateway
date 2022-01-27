@@ -3,6 +3,7 @@
 namespace App\Http\Resources\v1\Reports;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\v1\Transactions\IarRisResource;
 use App\Http\Resources\v1\Reports\ToggleIarReportResource;
 use App\Http\Resources\v1\Reports\ToggleSignatoryReportResource;
 
@@ -18,7 +19,7 @@ class StockCardReportResource extends JsonResource
     {
         return [
             'id' => hashid_encode($this->id),
-            'title' => 'INVENTORY ACCEPTANCE REPORT',
+            'title' => 'STOCK CARD REPORT',
             'entity_name' => $this->stockCard->inventory->tallyIn->iar->entity_name,
             'stock_nr' => $this->stockCard->stock_card_nr,
             'desciption' => $this->stockCard->inventory->description,
@@ -26,7 +27,8 @@ class StockCardReportResource extends JsonResource
             'uom' => $this->stockCard->inventory->ammunitionNomenclature->ammunitionUom->name,
             'fund_cluster' => $this->stockCard->inventory->tallyIn->iar->fundCluster->name,
             're_order_point' => 'None',
-            'iar' => new ToggleIarReportResource($this->stockCard->inventory),
+            // 'iar' => new ToggleIarReportResource($this->stockCard->inventory),
+            'item' => IarRisResource::collection($this->stockCard->iarRis),
             'received_from_id' => new ToggleSignatoryReportResource($this->receivedFromSignatory),
             'received_by_id' => new ToggleSignatoryReportResource($this->receivedBySignatory),
             'header' => 'By 2021, a word-class Army that is a source of national pride.',

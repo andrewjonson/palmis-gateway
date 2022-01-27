@@ -72,6 +72,7 @@ $router->group(['prefix' => 'api/'.config('app.version').'/sumis'], function() u
     $router->get('/report/iar/{id}', 'v1\Reports\IarReportController@getReportIar');
     $router->get('/report/issuance-directive/{id}', 'v1\Reports\IssuanceDirectiveReportController@getReportIssuanceDirective');
     $router->get('/report/stock-card/{id}', 'v1\Reports\StockCardReportController@getReportStockCard');
+    $router->get('/report/tally-out/{id}', 'v1\Transactions\TallyOutController@getTallyOutReport');
     
     // IAR
     $router->group(['prefix' => 'iar'], function() use($router) {
@@ -85,6 +86,7 @@ $router->group(['prefix' => 'api/'.config('app.version').'/sumis'], function() u
     // Stock Card
     $router->get('/stockcard/getlist', 'v1\Transactions\StockCardController@getList');
     $router->get('/stockcard/get-by-id/{id}', 'v1\Transactions\StockCardController@getStockCardById');
+    $router->get('/stockcard/get-ris-iar', 'v1\Transactions\IarRisController@getIarRis');
 
     //Issuance
     $router->group(['prefix' => 'issuance'], function() use($router) {
