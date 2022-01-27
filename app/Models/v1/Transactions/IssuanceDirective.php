@@ -5,6 +5,8 @@ namespace App\Models\v1\Transactions;
 use App\Models\BaseModel;
 use App\Models\v1\References\Fpao;
 use App\Models\v1\References\Fssu;
+use App\Models\v1\Transactions\Iar;
+use App\Models\v1\Transactions\Ris;
 use App\Models\v1\References\FpaoUnit;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\v1\Transactions\IssuanceDirectiveItem;
@@ -24,7 +26,8 @@ class IssuanceDirective extends Model
         'end_user_id',
         'issuance_directive_purpose_id',
         'issuance_directive_condition_id',
-        'is_released'
+        'is_released',
+        'iar_id'
     ];
     protected $table = 'tr_issuance_directives';
 
@@ -66,5 +69,15 @@ class IssuanceDirective extends Model
     public function endUserFpaoUnit()
     {
         return $this->belongsTo(FpaoUnit::class, 'end_user_id', 'id');
+    }
+
+    public function ris()
+    {
+        return $this->hasMany(Ris::class, 'issuance_directive_id');
+    }
+
+    public function iar()
+    {
+        return $this->belongsTo(Iar::class, 'iar_id');
     }
 }

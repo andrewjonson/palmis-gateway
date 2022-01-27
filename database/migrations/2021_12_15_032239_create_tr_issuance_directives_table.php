@@ -47,6 +47,10 @@ class CreateTrIssuanceDirectivesTable extends Migration
                 ->nullable()
                 ->constrained('rf_issuance_directive_conditions')
                 ->onDelete('cascade');
+
+            $table->foreignId('iar_id')
+                ->constrained('tr_iars')
+                ->onDelete('cascade');
             
             $table->boolean('is_released')->default(false);
             $table->bigInteger('team_id')

@@ -19,6 +19,10 @@ class CreateTrRisTable extends Migration
                 ->nullable()
                 ->constrained('tr_issuance_directives')
                 ->onDelete('cascade');
+            $table->foreignId('std_id')
+                ->nullable()
+                ->constrained('tr_stds')
+                ->onDelete('cascade');
             $table->string('ris_nr');
             $table->boolean('status')->default(false);                                                                                                                 
             $table->string('entity_name')->nullable();

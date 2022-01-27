@@ -20,8 +20,8 @@ class RisResource extends JsonResource
      */
     public function toArray($request)
     {
-        $unit = new ToeisService;
-        $fetchPamu = $unit->getToggleUnitName(hashid_encode($this->issuanceDirective->pamu_id));
+        // $unit = new ToeisService;
+        // $fetchPamu = $unit->getToggleUnitName(hashid_encode($this->issuanceDirective->pamu_id));
         
         return [
             'id' => hashid_encode($this->id),
@@ -31,7 +31,7 @@ class RisResource extends JsonResource
             'fund_cluster' => new FundClusterResource($this->fundCluster),
             'issuance_directive' => new IssuanceDirectiveResource($this->issuanceDirective),
             // 'division' => $fetchPamu->{'original'}['data'],
-            'responsibility_center_code' => new ResponsibilityCodeResource($this->responsibilityCode),
+            // 'responsibility_center_code' => new ResponsibilityCodeResource($this->responsibilityCode),
             'purpose' => $this->issuanceDirective->issuancePurpose->name,
             'items' => RisItemResource::collection(IssuanceDirectiveItem::where('issuance_directive_id', $this->issuance_directive_id)->get())
         ];

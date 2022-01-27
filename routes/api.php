@@ -124,4 +124,6 @@ $router->group(['prefix' => 'api/'.config('app.version').'/sumis'], function() u
     $router->post('/create-std-item/{stdId}', 'v1\Transactions\StdItemController@createStdItem');
     $router->get('/get-std-by-id/{stdId}', 'v1\Transactions\StdController@getStdById');
     $router->delete('/delete-std-item/{stdItemId}', 'v1\Transactions\StdItemController@deleteStdItem');
+
+    $router->get('/get-rsmis/{id}', 'v1\Transactions\IarController@getRsmis');
 });
