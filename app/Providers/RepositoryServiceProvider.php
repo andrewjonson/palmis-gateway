@@ -45,6 +45,7 @@ use App\Repositories\Eloquent\v1\References\ServicingFpaoRepository;
 use App\Repositories\Eloquent\v1\References\UserWarehouseRepository;
 use App\Repositories\Eloquent\v1\References\AmmunitionTypeRepository;
 use App\Repositories\Eloquent\v1\References\ClassificationRepository;
+use App\Repositories\Eloquent\v1\References\UacsObjectCodeRepository;
 use App\Repositories\Interfaces\v1\References\FpaoRepositoryInterface;
 use App\Repositories\Interfaces\v1\References\FssuRepositoryInterface;
 use App\Repositories\Interfaces\v1\References\MakeRepositoryInterface;
@@ -100,6 +101,7 @@ use App\Repositories\Interfaces\v1\References\ServicingFpaoRepositoryInterface;
 use App\Repositories\Interfaces\v1\References\UserWarehouseRepositoryInterface;
 use App\Repositories\Interfaces\v1\References\AmmunitionTypeRepositoryInterface;
 use App\Repositories\Interfaces\v1\References\ClassificationRepositoryInterface;
+use App\Repositories\Interfaces\v1\References\UacsObjectCodeRepositoryInterface;
 use App\Repositories\Eloquent\v1\References\AmmunitionHeadStumpMarkingRepository;
 use App\Repositories\Eloquent\v1\References\IssuanceDirectiveConditionRepository;
 use App\Repositories\Interfaces\v1\References\AmmunitionDetailRepositoryInterface;
@@ -166,6 +168,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(SignatoryCoRepositoryInterface::class, SignatoryCoRepository::class);
         $this->app->bind(EndUserRepositoryInterface::class, EndUserRepository::class);
         $this->app->bind(AmmunitionArticleRepositoryInterface::class, AmmunitionArticleRepository::class);
+        $this->app->bind(UacsObjectCodeRepositoryInterface::class, UacsObjectCodeRepository::class);
 
         //Transaction
         $this->app->bind(TallyInRepositoryInterface::class, TallyInRepository::class);

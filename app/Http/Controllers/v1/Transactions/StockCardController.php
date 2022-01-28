@@ -28,8 +28,10 @@ class StockCardController extends Controller
      */
     public function getList(Request $request)
     {
+        $keyword = $request->keyword;
+        $rowsPerPage = $request->rowsPerPage;
         try {
-            $result = $this->modelRepository->paginate();
+            $result = $this->modelRepository->search($keyword, $rowsPerPage);
             return $this->resource::collection($result);
         }catch(\Exception $e) {
             return $this->failedResponse($e->getMessage(), SERVER_ERROR);
