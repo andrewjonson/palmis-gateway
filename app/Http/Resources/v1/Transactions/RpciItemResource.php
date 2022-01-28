@@ -19,10 +19,12 @@ class RpciItemResource extends JsonResource
         return [
             'articles' => AmmunitionArticle::find($this->ammunitionNomenclature->ammunition_article_id)->name,
             'description' => $this->ammunitionNomenclature->ammunition_name,
-            'stock_number' => $this->quantity,
+            'stock_number' => $this->lot_number,
             'uom' => AmmunitionUom::find($this->ammunitionNomenclature->ammunition_uom_id)->name,
-            'unit_value' => $this->total_amount,
+            'unit_value' => $this->unit_price,
             'temp_balance_qty' => $this->temp_balance_qty,
+            'condition' => $this->condition->code,
+            'total_amount' => $this->unit_price * $this->temp_balance_qty
         ];
     }
 }

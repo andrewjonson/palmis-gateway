@@ -14,7 +14,7 @@ class RisItemResource extends JsonResource
      */
     public function toArray($request)
     {
-        $amount = $this->stockCard->inventory->quantity * $this->stockCard->inventory->unit_price;
+        $amount = $this->quantity * $this->stockCard->inventory->unit_price;
         return [
             'id' => hashid_encode($this->id),
             'stock_card_nr' => $this->stockCard->stock_card_nr,
