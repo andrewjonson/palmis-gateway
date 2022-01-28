@@ -102,8 +102,10 @@ class RisController extends BaseController
      */
     public function getRisList(Request $request)
     {
+        $keyword = $request->keyword;
+        $rowsPerPage = $request->rowsPerPage;
         try {
-            $data = $this->modelRepository->paginate();
+            $data = $this->modelRepository->search($keyword, $rowsPerPage);
             return $this->risIdItemResource::collection($data);
         }catch(\Exception $e) {
             return $this->failedResponse($e->getMessage(), SERVER_ERROR);
