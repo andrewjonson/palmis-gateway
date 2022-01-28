@@ -27,11 +27,11 @@ class RisResource extends JsonResource
             'id' => hashid_encode($this->id),
             'ris_nr' => $this->ris_nr,
             'status' => $this->status,
-            'entity_name' => $this->entity_name,
-            'fund_cluster' => new FundClusterResource($this->fundCluster),
+            'entity_name' => $this->issuanceDirective->iar->entity_name,
+            'fund_cluster' => new FundClusterResource($this->issuanceDirective->iar->fundCluster),
             'issuance_directive' => new IssuanceDirectiveResource($this->issuanceDirective),
             // 'division' => $fetchPamu->{'original'}['data'],
-            // 'responsibility_center_code' => new ResponsibilityCodeResource($this->responsibilityCode),
+            'responsibility_center_code' => new ResponsibilityCodeResource($this->issuanceDirective->iar->responsibilityCode),
             'purpose' => $this->issuanceDirective->issuancePurpose->name,
             'items' => RisItemResource::collection(IssuanceDirectiveItem::where('issuance_directive_id', $this->issuance_directive_id)->get())
         ];

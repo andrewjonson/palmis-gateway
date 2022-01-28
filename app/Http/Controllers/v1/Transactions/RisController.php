@@ -48,9 +48,7 @@ class RisController extends BaseController
     {
         $id = hashid_decode($id);
         $data = $this->modelRepository->update([
-            'entity_name' => $request->entity_name,
-            'fund_cluster_id' => hashid_decode($request->fund_cluster_id),
-            'responsibility_center_code_id' => hashid_decode($request->responsibility_center_code_id)
+            'status' => true,
         ], $id);
 
         $issuanceDirective = $this->issuanceDirective->find($data->issuance_directive_id);
@@ -73,7 +71,6 @@ class RisController extends BaseController
             
             $dataInventory = $inventory->update(['quantity' => $total]);
         }
-        $ris = $data->update(['status' => true]);
         $issuance_directive = $issuanceDirective->update(['is_released' => true]);
         return $this->successResponse('RIS Created Successfully', DATA_OK);
     }
@@ -139,7 +136,7 @@ class RisController extends BaseController
         $rowsPerPage = $request->rowsPerPage;
         try {
             $data = $this->modelRepository->search($keyword, $rowsPerPage);
-            return $this->risIdItemResource::collection($data);
+            return $this->resource::collection($data);
         }catch(\Exception $e) {
             return $this->failedResponse($e->getMessage(), SERVER_ERROR);
         }

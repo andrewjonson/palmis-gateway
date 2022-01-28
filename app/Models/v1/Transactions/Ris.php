@@ -11,12 +11,10 @@ class Ris extends BaseModel
 {
     protected $table = 'tr_ris';
     protected $fillable = [
-        'issuance_directive_id', 
+        'issuance_directive_id',
+        'std_id',
         'ris_nr',
         'status',
-        'responsibility_center_code_id',
-        'entity_name',
-        'fund_cluster_id'
     ];
 
     public function issuanceDirective()
