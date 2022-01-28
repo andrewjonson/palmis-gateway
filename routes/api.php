@@ -42,6 +42,7 @@ $router->group(['prefix' => 'api/'.config('app.version').'/sumis'], function() u
     resource('/user-warehouse', 'References\UserWarehouseController', $router);
     resource('/responsibility-code', 'References\ResponsibilityCodeController', $router);
     resource('/doc-setting', 'References\DocSettingController', $router);
+    resource('/uacs-object-code', 'References\UacsObjectCodeController', $router);
 
     $router->group(['prefix' => 'ammunition'], function() use($router) {
         resource('/category', 'References\AmmunitionCategoryController', $router);
