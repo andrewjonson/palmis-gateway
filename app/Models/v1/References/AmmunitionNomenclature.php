@@ -3,6 +3,7 @@
 namespace App\Models\v1\References;
 
 use App\Models\BaseModel;
+use App\Models\v1\References\UacsObjectCode;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class AmmunitionNomenclature extends BaseModel
@@ -19,7 +20,8 @@ class AmmunitionNomenclature extends BaseModel
         'ammunition_supply_id',
         'ammunition_detail_id',
         'ammunition_head_stump_marking_id',
-        'ammunition_article_id'
+        'ammunition_article_id',
+        'uacs_object_code_id'
     ];
     protected $table = 'rf_ammunition_nomenclatures';
 
@@ -66,5 +68,10 @@ class AmmunitionNomenclature extends BaseModel
     public function ammunitionArticle()
     {
         return $this->belongsTo(AmmunitionArticle::class, 'ammunition_article_id');
+    }
+
+    public function uacsObjectCode()
+    {
+        return $this->belongsTo(UacsObjectCode::class, 'uacs_object_code_id');
     }
 }
