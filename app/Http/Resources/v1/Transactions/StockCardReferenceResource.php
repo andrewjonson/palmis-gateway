@@ -19,9 +19,9 @@ class StockCardReferenceResource extends JsonResource
             'reference' => $this->reference,
             'uom' => $this->stockCard->inventory->ammunitionNomenclature->ammunitionUom->name,
             'desciption' => $this->stockCard->inventory->description,
-            'requisition_count' => $this->iar_id ? $this->stockCard->inventory->quantity : null,
-            'issue_quantity' => $this->ris_id ? $this->stockCard->issuanceDirectiveItem->quantity : null,
-            'issue_remarks' => $this->ris_id ? $this->stockCard->issuanceDirectiveItem->remarks : null
+            'requisition_count' => $this->stockCard->inventory->quantity,
+            'issue_quantity' => $this->stockCard->issuanceDirectiveItem->issuanceDirective->ris ? $this->stockCard->issuanceDirectiveItem->quantity : null,
+            'issue_remarks' => $this->stockCard->issuanceDirectiveItem->issuanceDirective->ris ? $this->stockCard->issuanceDirectiveItem->remarks : null
         ];
     }
 }
