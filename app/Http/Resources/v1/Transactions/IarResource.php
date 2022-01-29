@@ -32,7 +32,9 @@ class IarResource extends JsonResource
             'invoice_date' => $this->invoice_date,
             'office' => new OfficeResource($this->office),
             'responsibility_code' => new ResponsibilityCodeResource($this->responsibilityCode),
-            'inventory' => InventoryResource::collection($this->inventory)
+            'inventory' => InventoryResource::collection($this->inventory),
+            'accountable_officer' => $this->accountable_officer,
+            'officer_designation' => $this->officer_designation
         ];
     }
 }

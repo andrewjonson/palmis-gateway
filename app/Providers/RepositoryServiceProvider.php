@@ -9,6 +9,7 @@ use App\Repositories\Eloquent\v1\References\MakeRepository;
 use App\Repositories\Eloquent\v1\References\TypeRepository;
 use App\Repositories\Eloquent\v1\Transactions\IarRepository;
 use App\Repositories\Eloquent\v1\Transactions\RisRepository;
+use App\Repositories\Eloquent\v1\Transactions\StdRepository;
 use App\Repositories\Eloquent\v1\References\DetailRepository;
 use App\Repositories\Eloquent\v1\References\OfficeRepository;
 use App\Repositories\Eloquent\v1\References\RegionRepository;
@@ -22,11 +23,11 @@ use App\Repositories\Eloquent\v1\References\FpaoUnitRepository;
 use App\Repositories\Eloquent\v1\References\MunicityRepository;
 use App\Repositories\Eloquent\v1\References\ProvinceRepository;
 use App\Repositories\Eloquent\v1\References\SupplierRepository;
-use App\Repositories\Eloquent\v1\Transactions\IarRisRepository;
 use App\Repositories\Interfaces\v1\EloquentRepositoryInterface;
 use App\Repositories\Eloquent\v1\References\ConditionRepository;
 use App\Repositories\Eloquent\v1\References\SignatoryRepository;
 use App\Repositories\Eloquent\v1\References\WarehouseRepository;
+use App\Repositories\Eloquent\v1\Transactions\StdItemRepository;
 use App\Repositories\Eloquent\v1\Transactions\TallyInRepository;
 use App\Repositories\Eloquent\v1\References\DocSettingRepository;
 use App\Repositories\Eloquent\v1\Reports\TallyInReportRepository;
@@ -43,6 +44,7 @@ use App\Repositories\Eloquent\v1\References\ServicingFpaoRepository;
 use App\Repositories\Eloquent\v1\References\UserWarehouseRepository;
 use App\Repositories\Eloquent\v1\References\AmmunitionTypeRepository;
 use App\Repositories\Eloquent\v1\References\ClassificationRepository;
+use App\Repositories\Eloquent\v1\References\UacsObjectCodeRepository;
 use App\Repositories\Interfaces\v1\References\FpaoRepositoryInterface;
 use App\Repositories\Interfaces\v1\References\FssuRepositoryInterface;
 use App\Repositories\Interfaces\v1\References\MakeRepositoryInterface;
@@ -51,6 +53,7 @@ use App\Repositories\Eloquent\v1\References\AmmunitionDetailRepository;
 use App\Repositories\Eloquent\v1\References\AmmunitionSupplyRepository;
 use App\Repositories\Interfaces\v1\Transactions\IarRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\RisRepositoryInterface;
+use App\Repositories\Interfaces\v1\Transactions\StdRepositoryInterface;
 use App\Repositories\Eloquent\v1\References\AmmunitionArticleRepository;
 use App\Repositories\Eloquent\v1\References\UnitOfMeasurementRepository;
 use App\Repositories\Interfaces\v1\References\DetailRepositoryInterface;
@@ -69,11 +72,12 @@ use App\Repositories\Interfaces\v1\References\FpaoUnitRepositoryInterface;
 use App\Repositories\Interfaces\v1\References\MunicityRepositoryInterface;
 use App\Repositories\Interfaces\v1\References\ProvinceRepositoryInterface;
 use App\Repositories\Interfaces\v1\References\SupplierRepositoryInterface;
-use App\Repositories\Interfaces\v1\Transactions\IarRisRepositoryInterface;
 use App\Repositories\Eloquent\v1\Reports\IssuanceDirectiveReportRepository;
+use App\Repositories\Eloquent\v1\Transactions\StockCardReferenceRepository;
 use App\Repositories\Interfaces\v1\References\ConditionRepositoryInterface;
 use App\Repositories\Interfaces\v1\References\SignatoryRepositoryInterface;
 use App\Repositories\Interfaces\v1\References\WarehouseRepositoryInterface;
+use App\Repositories\Interfaces\v1\Transactions\StdItemRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\TallyInRepositoryInterface;
 use App\Repositories\Eloquent\v1\References\AmmunitionSizeCaliberRepository;
 use App\Repositories\Interfaces\v1\References\DocSettingRepositoryInterface;
@@ -96,6 +100,7 @@ use App\Repositories\Interfaces\v1\References\ServicingFpaoRepositoryInterface;
 use App\Repositories\Interfaces\v1\References\UserWarehouseRepositoryInterface;
 use App\Repositories\Interfaces\v1\References\AmmunitionTypeRepositoryInterface;
 use App\Repositories\Interfaces\v1\References\ClassificationRepositoryInterface;
+use App\Repositories\Interfaces\v1\References\UacsObjectCodeRepositoryInterface;
 use App\Repositories\Eloquent\v1\References\AmmunitionHeadStumpMarkingRepository;
 use App\Repositories\Eloquent\v1\References\IssuanceDirectiveConditionRepository;
 use App\Repositories\Interfaces\v1\References\AmmunitionDetailRepositoryInterface;
@@ -106,6 +111,7 @@ use App\Repositories\Interfaces\v1\References\AmmunitionCategoryRepositoryInterf
 use App\Repositories\Interfaces\v1\References\ResponsibilityCodeRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\IssuanceDirectiveRepositoryInterface;
 use App\Repositories\Interfaces\v1\Reports\IssuanceDirectiveReportRepositoryInterface;
+use App\Repositories\Interfaces\v1\Transactions\StockCardReferenceRepositoryInterface;
 use App\Repositories\Interfaces\v1\References\AmmunitionSizeCaliberRepositoryInterface;
 use App\Repositories\Interfaces\v1\References\AmmunitionNomenclatureRepositoryInterface;
 use App\Repositories\Interfaces\v1\References\AmmunitionSizeCalliberRepositoryInterface;
@@ -162,6 +168,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(SignatoryCoRepositoryInterface::class, SignatoryCoRepository::class);
         $this->app->bind(EndUserRepositoryInterface::class, EndUserRepository::class);
         $this->app->bind(AmmunitionArticleRepositoryInterface::class, AmmunitionArticleRepository::class);
+        $this->app->bind(UacsObjectCodeRepositoryInterface::class, UacsObjectCodeRepository::class);
 
         //Transaction
         $this->app->bind(TallyInRepositoryInterface::class, TallyInRepository::class);
@@ -172,7 +179,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(IssuanceDirectiveItemRepositoryInterface::class, IssuanceDirectiveItemRepository::class);
         $this->app->bind(RisRepositoryInterface::class, RisRepository::class);
         $this->app->bind(TallyOutRepositoryInterface::class, TallyOutRepository::class);
-        $this->app->bind(IarRisRepositoryInterface::class, IarRisRepository::class);
+        $this->app->bind(StockCardReferenceRepositoryInterface::class, StockCardReferenceRepository::class);
 
         //Report
         $this->app->bind(TallyInReportRepositoryInterface::class, TallyInReportRepository::class);
@@ -182,5 +189,9 @@ class RepositoryServiceProvider extends ServiceProvider
 
         //Dashboard
         $this->app->bind(DashboardRepositoryInterface::class, DashboardRepository::class);
+    
+        //STD
+        $this->app->bind(StdRepositoryInterface::class, StdRepository::class);
+        $this->app->bind(StdItemRepositoryInterface::class, StdItemRepository::class);
     }
 }

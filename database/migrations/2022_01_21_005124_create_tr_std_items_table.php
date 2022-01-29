@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTrRisTable extends Migration
+class CreateTrStdItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,15 @@ class CreateTrRisTable extends Migration
      */
     public function up()
     {
-        Schema::create('tr_ris', function (Blueprint $table) {
+        Schema::create('tr_std_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('issuance_directive_id')
-                ->nullable()
-                ->constrained('tr_issuance_directives')
-                ->onDelete('cascade');
-            $table->string('ris_nr');
-            $table->boolean('status')->default(false);                                                                                                                 
-            $table->string('entity_name')->nullable();
-            $table->foreignId('responsibility_center_code_id')->nullable()->constrained('rf_responsibility_codes');
-            $table->foreignId('fund_cluster_id')->nullable()->constrained('rf_fund_clusters');
+            $table->foreignId('std_id')->constrained('tr_stds');
+            $table->foreignId('cognizant_fpao_id')->constrained('rf_fpaos');
+            $table->foreignId('receiving_fpao_id')->constrained('rf_fpaos');
+            $table->foreignId('cognizant_fssu_id')->constrained('rf_fssus');
+            $table->foreignId('receiving_fssu_id')->constrained('rf_fssus');
+            $table->foreignId('stock_card_id')->constrained('tr_stock_cards');
+            $table->integer('quantity');
             $table->bigInteger('team_id')
                     ->nullable();
             $table->bigInteger('created_by')
@@ -45,6 +43,6 @@ class CreateTrRisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tr_ris');
+        Schema::dropIfExists('tr_std_items');
     }
 }

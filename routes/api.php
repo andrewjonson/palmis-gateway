@@ -42,6 +42,7 @@ $router->group(['prefix' => 'api/'.config('app.version').'/sumis'], function() u
     resource('/user-warehouse', 'References\UserWarehouseController', $router);
     resource('/responsibility-code', 'References\ResponsibilityCodeController', $router);
     resource('/doc-setting', 'References\DocSettingController', $router);
+    resource('/uacs-object-code', 'References\UacsObjectCodeController', $router);
 
     $router->group(['prefix' => 'ammunition'], function() use($router) {
         resource('/category', 'References\AmmunitionCategoryController', $router);
@@ -86,7 +87,7 @@ $router->group(['prefix' => 'api/'.config('app.version').'/sumis'], function() u
     // Stock Card
     $router->get('/stockcard/getlist', 'v1\Transactions\StockCardController@getList');
     $router->get('/stockcard/get-by-id/{id}', 'v1\Transactions\StockCardController@getStockCardById');
-    $router->get('/stockcard/get-ris-iar', 'v1\Transactions\IarRisController@getIarRis');
+    $router->get('/stockcard/get-stock-card-reference', 'v1\Transactions\StockCardReferenceController@getStockCardReference');
 
     //Issuance
     $router->group(['prefix' => 'issuance'], function() use($router) {
@@ -109,6 +110,7 @@ $router->group(['prefix' => 'api/'.config('app.version').'/sumis'], function() u
     $router->get('/toggle-doc-setting', 'v1\References\DocSettingController@getDocSetting');
 
     // RIS
+    $router->post('/ris/create/{id}', 'v1\Transactions\RisController@createRis');
     $router->get('/ris/get-list', 'v1\Transactions\RisController@getRisList');
     $router->get('/ris/search/{id}', 'v1\Transactions\RisController@getRisById');
 
@@ -117,4 +119,10 @@ $router->group(['prefix' => 'api/'.config('app.version').'/sumis'], function() u
 
     //Dashboard
     $router->get('/dashboard/per-pamu/{id}', 'v1\Dashboard\DashboardController@getListNomenclaturePerPamu');
+
+    //STD
+    resource('/stds', 'Transactions\StdController', $router);
+    $router->post('/create-std-item/{stdId}', 'v1\Transactions\StdItemController@createStdItem');
+    $router->get('/get-std-by-id/{stdId}', 'v1\Transactions\StdController@getStdById');
+    $router->delete('/delete-std-item/{stdItemId}', 'v1\Transactions\StdItemController@deleteStdItem');
 });

@@ -38,7 +38,11 @@ class IssuanceDirectiveItemController extends BaseController
     public function updateIdItem(Request $request)
     {
         $risId = hashid_decode($request->ris_id);
-        $risData = $this->risRepository->find($risId);
+        $risData = $this->risRepository->update([
+            'entity_name' => $request->entity_name,
+            'fund_cluster_id' => hashid_decode($request->fund_cluster_id),
+            'responsibility_center_code_id' => hashid_decode($request->responsibility_center_code_id)
+        ], $risId);
         
         try {
             $updateItem = $request->issuance_directive_item;
@@ -58,12 +62,7 @@ class IssuanceDirectiveItemController extends BaseController
                     $inventoryId = $stockCard->inventory_id;
                     $inventory = $this->inventoryRepository->find($inventoryId);
                     
-                    $quantity = $inventory->quantity;
-                    $balance = $inventory->temp_balance_qty;
-                    $total = $quantity - $balance;
-                    
-                    $dataInventory = $inventory->update(['quantity' => $total]);
-                    $total = 0;
+                    $dataInventory = $inventory->update(['quantity' => $inventory->temp_balance_qty]);
                 }
                 $ris = $risData->update(['status' => true]);
     

@@ -3,27 +3,27 @@
 namespace App\Http\Controllers\v1\Transactions;
 
 use App\Http\Controllers\Controller;
-use App\Repositories\Interfaces\v1\Transactions\IarRisRepositoryInterface;
-use App\Http\Resources\v1\Transactions\IarRisResource;
+use App\Repositories\Interfaces\v1\Transactions\StockCardReferenceRepositoryInterface;
+use App\Http\Resources\v1\Transactions\StockCardReferenceResource;
 use Illuminate\Http\Request;
 
-class IarRisController extends Controller
+class StockCardReferenceController extends Controller
 {
     protected $rules = [];
 
     public function __construct(
-        IarRisRepositoryInterface $iarRisRepository, 
+        StockCardReferenceRepositoryInterface $stockCardReferenceRepository, 
         Request $request
     )
     {
-        $this->modelRepository = $iarRisRepository;
-        $this->resource = IarRisResource::class;
-        $this->modelName = 'IarRis';
+        $this->modelRepository = $stockCardReferenceRepository;
+        $this->resource = StockCardReferenceResource::class;
+        $this->modelName = 'StockCardReference';
 
         parent::__construct($request);
     }
 
-    public function getIarRis(Request $request)
+    public function getStockCardReference(Request $request)
     {
         $stockCardId = hashid_decode($request->stock_card_id);
         try {

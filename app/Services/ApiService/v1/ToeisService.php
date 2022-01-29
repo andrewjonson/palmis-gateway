@@ -49,6 +49,6 @@ class ToeisService
 
     public function getToggleUnitName($id)
     {
-        return $this->performRequest('GET', '/toeis/toggle-unit-name/'.$id);
+        return $this->performRequest('GET', '/api/v1/toeis/toggle-unit-name/'.$id);
     }
 }
