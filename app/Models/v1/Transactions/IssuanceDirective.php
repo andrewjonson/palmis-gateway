@@ -26,7 +26,8 @@ class IssuanceDirective extends Model
         'issuance_directive_purpose_id',
         'issuance_directive_condition_id',
         'is_released',
-        'iar_id'
+        'iar_id',
+        'remarks'
     ];
     protected $table = 'tr_issuance_directives';
 

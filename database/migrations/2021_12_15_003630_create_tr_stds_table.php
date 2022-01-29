@@ -19,6 +19,7 @@ class CreateTrStdsTable extends Migration
             $table->string('authority');
             $table->foreignId('issuance_directive_purpose_id')->constrained('rf_issuance_directive_purposes');
             $table->date('date');
+            $table->string('remarks');
             $table->foreignId('iar_id')
                 ->constrained('tr_iars')
                 ->onDelete('cascade');

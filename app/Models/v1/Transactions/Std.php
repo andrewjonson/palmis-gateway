@@ -20,7 +20,8 @@ class Std extends BaseModel
         'authority', 
         'issuance_directive_purpose_id',
         'date',
-        'iar_id'
+        'iar_id',
+        'remarks'
     ];
     protected $table = 'tr_stds';
 
@@ -37,5 +38,10 @@ class Std extends BaseModel
     public function ris()
     {
         return $this->hasMany(Ris::class, 'std_id');
+    }
+
+    public function iar()
+    {
+        return $this->belongsTo(Iar::class, 'iar_id');
     }
 }

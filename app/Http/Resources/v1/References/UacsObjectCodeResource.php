@@ -16,9 +16,8 @@ class UacsObjectCodeResource extends JsonResource
     {
         return [
             'id' => hashid_encode($this->id),
-            'name' => $this->name,
+            'code' => $this->code,
             'description' => $this->description,
-            'code' => $this->code
         ];
     }
 }

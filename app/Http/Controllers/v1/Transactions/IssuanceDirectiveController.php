@@ -211,7 +211,8 @@ class IssuanceDirectiveController extends BaseController
             'servicing_fpao_id' => hashid_decode($request->servicing_fpao_id),
             'issuance_directive_purpose_id' => hashid_decode($request->issuance_directive_purpose_id),
             'issuance_directive_condition_id' => hashid_decode($request->issuance_directive_condition_id),
-            'iar_id' => hashid_decode($request->iar_id)
+            'iar_id' => hashid_decode($request->iar_id),
+            'remarks' => $request->remarks
         ]);
 
         try {
@@ -226,7 +227,8 @@ class IssuanceDirectiveController extends BaseController
                 'end_user_id',
                 'issuance_directive_purpose_id',
                 'issuance_directive_condition_id',
-                'iar_id'
+                'iar_id',
+                'remarks'
             ]);
 
             $result = $this->modelRepository->create($dataId);
