@@ -60,6 +60,12 @@ class RisController extends BaseController
                         'remarks' => $item['remarks'],
                     ], hashid_decode($item['id']));
 
+            $airRis = $this->stockCardReferenceRepository
+                    ->create([
+                        'stock_card_id' => $stockCardId,
+                        'reference' => $data->ris_nr,
+                    ]);
+
             $stockCardId = $directiveItem->stock_card_id;
             $stockCard = $this->stockCardRepository->find($stockCardId);
             $inventoryId = $stockCard->inventory_id;
