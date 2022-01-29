@@ -3,9 +3,9 @@
 namespace App\Http\Resources\v1\Reports;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\v1\Transactions\IarRisResource;
 use App\Http\Resources\v1\Reports\ToggleIarReportResource;
 use App\Http\Resources\v1\Reports\ToggleSignatoryReportResource;
+use App\Http\Resources\v1\Transactions\StockCardReferenceResource;
 
 class StockCardReportResource extends JsonResource
 {
@@ -28,7 +28,7 @@ class StockCardReportResource extends JsonResource
             'fund_cluster' => $this->stockCard->inventory->tallyIn->iar->fundCluster->name,
             're_order_point' => 'None',
             // 'iar' => new ToggleIarReportResource($this->stockCard->inventory),
-            'item' => IarRisResource::collection($this->stockCard->iarRis),
+            'item' => StockCardReferenceResource::collection($this->stockCard->stockCardReference),
             'received_from_id' => new ToggleSignatoryReportResource($this->receivedFromSignatory),
             'received_by_id' => new ToggleSignatoryReportResource($this->receivedBySignatory),
             'header' => 'By 2021, a word-class Army that is a source of national pride.',
