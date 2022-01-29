@@ -41,7 +41,8 @@ class AmmunitionNomenclatureController extends Controller
             'ammunition_supply_id' => hashid_decode($request->ammunition_supply_id),
             'ammunition_detail_id' => hashid_decode($request->ammunition_detail_id),
             'ammunition_head_stump_marking_id' => hashid_decode($request->ammunition_head_stump_marking_id),
-            'ammunition_article_id' => hashid_decode($request->ammunition_article_id)
+            'ammunition_article_id' => hashid_decode($request->ammunition_article_id),
+            'uacs_object_code_id' => hashid_decode($request->uacs_object_code_id)
         ]);
 
         try {
@@ -76,7 +77,8 @@ class AmmunitionNomenclatureController extends Controller
             'ammunition_supply_id' => hashid_decode($request->ammunition_supply_id),
             'ammunition_detail_id' => hashid_decode($request->ammunition_detail_id),
             'ammunition_head_stump_marking_id' => hashid_decode($request->ammunition_head_stump_marking_id),
-            'ammunition_article_id' => hashid_decode($request->ammunition_article_id)
+            'ammunition_article_id' => hashid_decode($request->ammunition_article_id),
+            'uacs_object_code_id' => hashid_decode($request->uacs_object_code_id)
         ]);
 
         try {
