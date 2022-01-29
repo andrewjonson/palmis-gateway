@@ -10,11 +10,11 @@ use App\Http\Resources\v1\Transactions\RisItemResource;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use App\Http\Resources\v1\Transactions\RisIdItemResource;
 use App\Repositories\Interfaces\v1\Transactions\RisRepositoryInterface;
-use App\Repositories\Interfaces\v1\Transactions\IarRisRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\TallyOutRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\InventoryRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\StockCardRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\IssuanceDirectiveRepositoryInterface;
+use App\Repositories\Interfaces\v1\Transactions\StockCardReferenceRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\IssuanceDirectiveItemRepositoryInterface;
 
 class RisController extends BaseController
@@ -28,7 +28,7 @@ class RisController extends BaseController
         TallyOutRepositoryInterface $tallyoutRepository,
         StockCardRepositoryInterface $stockcardRepository,
         InventoryRepositoryInterface $inventoryRepository,
-        IarRisRepositoryInterface $iarrisRepository
+        StockCardReferenceRepositoryInterface $stockCardReferenceRepository
         )
     {
         $this->modelRepository = $risRepository;
@@ -37,7 +37,7 @@ class RisController extends BaseController
         $this->tallyoutRepository = $tallyoutRepository;
         $this->stockcardRepository = $stockcardRepository;
         $this->inventoryRepository = $inventoryRepository;
-        $this->iarrisRepository = $iarrisRepository;
+        $this->stockCardReferenceRepository = $stockCardReferenceRepository;
         $this->modelName = 'RIS';
         $this->resource = RisResource::class;
         $this->risIdItemResource = risIdItemResource::class;
@@ -112,7 +112,7 @@ class RisController extends BaseController
             
             $dataInventory = $inventory->update(['quantity' => $total]);
 
-            $airRis = $this->iarrisRepository
+            $airRis = $this->stockCardReferenceRepository
                     ->create([
                         'stock_card_id' => $stockCardId,
                         'reference' => $data->ris_nr

@@ -19,11 +19,11 @@ use App\Http\Resources\v1\Transactions\InventoryResource;
 use App\Http\Resources\v1\Transactions\TallyInInventoryResource;
 use App\Repositories\Interfaces\v1\Transactions\IarRepositoryInterface;
 use App\Repositories\Interfaces\v1\Reports\IarReportRepositoryInterface;
-use App\Repositories\Interfaces\v1\Transactions\IarRisRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\TallyInRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\InventoryRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\StockCardRepositoryInterface;
 use App\Repositories\Interfaces\v1\Reports\StockCardReportRepositoryInterface;
+use App\Repositories\Interfaces\v1\Transactions\StockCardReferenceRepositoryInterface;
 
 class IarController extends Controller
 {
@@ -36,7 +36,7 @@ class IarController extends Controller
         TallyInRepositoryInterface $tallyInRepository,
         IarReportRepositoryInterface $reportRepository,
         StockCardReportRepositoryInterface $stockcardreportRepository,
-        IarRisRepositoryInterface $iarrisRepository,
+        StockCardReferenceRepositoryInterface $stockCardReferenceRepository,
         Request $request
     )
     {
@@ -46,7 +46,7 @@ class IarController extends Controller
         $this->tallyInRepository = $tallyInRepository;
         $this->reportRepository = $reportRepository;
         $this->stockcardreportRepository = $stockcardreportRepository;
-        $this->iarrisRepository = $iarrisRepository;
+        $this->stockCardReferenceRepository = $stockCardReferenceRepository;
         $this->inventoryResource = InventoryResource::class;
         $this->resource = IarResource::class;
         $this->tallyInInventoryResource = TallyInInventoryResource::class;
@@ -84,7 +84,7 @@ class IarController extends Controller
                     
                     $stockCardId = $stockCard->id;
 
-                    $airRis = $this->iarrisRepository
+                    $airRis = $this->stockCardReferenceRepository
                                 ->create([
                                     'stock_card_id' => $stockCardId,
                                     'reference' => $iar->iar_nr,

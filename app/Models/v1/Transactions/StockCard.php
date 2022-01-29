@@ -3,10 +3,10 @@
 namespace App\Models\v1\Transactions;
 
 use App\Models\BaseModel;
-use App\Models\v1\Transactions\IarRis;
 use App\Models\v1\References\Signatory;
 use App\Models\v1\Transactions\StdItem;
 use App\Models\v1\Transactions\Inventory;
+use App\Models\v1\Transactions\StockCardReference;
 use App\Models\v1\Transactions\IssuanceDirectiveItem;
 
 class StockCard extends BaseModel
@@ -24,9 +24,9 @@ class StockCard extends BaseModel
         return $this->belongsTo(IssuanceDirectiveItem::class, 'id', 'stock_card_id');
     }
 
-    public function iarRis()
+    public function stockCardReference()
     {
-        return $this->hasMany(IarRis::class, 'stock_card_id', 'id');
+        return $this->hasMany(StockCardReference::class, 'stock_card_id', 'id');
     }
 
     public function stdItem()
