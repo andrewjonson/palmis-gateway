@@ -5,6 +5,7 @@ namespace App\Http\Resources\v1\References;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\v1\References\AmmunitionUomResource;
 use App\Http\Resources\v1\References\AmmunitionTypeResource;
+use App\Http\Resources\v1\References\UacsObjectCodeResource;
 use App\Http\Resources\v1\References\AmmunitionDetailResource;
 use App\Http\Resources\v1\References\AmmunitionSupplyResource;
 use App\Http\Resources\v1\References\AmmunitionArticleResource;
@@ -35,7 +36,8 @@ class AmmunitionNomenclatureResource extends JsonResource
             'ammunition_supply' => new AmmunitionSupplyResource($this->ammunitionSupply),
             'ammunition_detail' => new AmmunitionDetailResource($this->ammunitionDetail),
             'ammunition_head_stump_marking' => new AmmunitionHeadStumpMarkingResource($this->ammunitionHeadStumpMarking),
-            'ammunition_article' => new AmmunitionArticleResource($this->ammunitionArticle)
+            'ammunition_article' => new AmmunitionArticleResource($this->ammunitionArticle),
+            'uacs_object_code' => new UacsObjectCodeResource($this->uacsObjectCode)
         ];
     }
 }
