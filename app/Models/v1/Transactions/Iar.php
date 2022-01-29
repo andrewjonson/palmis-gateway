@@ -54,9 +54,9 @@ class Iar extends BaseModel
         return $this->hasMany(Inventory::class, 'tally_in_id', 'tally_in_id');
     }
 
-    public function issuanceDirective()
+    public function issuanceDirectives()
     {
-        return $this->hasOne(IssuanceDirective::class, 'iar_id');
+        return $this->hasMany(IssuanceDirective::class, 'iar_id');
     }
 
     public function std()

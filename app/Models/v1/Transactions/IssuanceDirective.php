@@ -23,7 +23,6 @@ class IssuanceDirective extends Model
         'cognizant_fssu_id',
         'servicing_fpao_id',
         'date',
-        'end_user_id',
         'issuance_directive_purpose_id',
         'issuance_directive_condition_id',
         'is_released',

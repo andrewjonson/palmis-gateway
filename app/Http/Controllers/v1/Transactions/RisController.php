@@ -161,9 +161,9 @@ class RisController extends BaseController
             $checkStatus = $data->status;
 
             if($checkStatus == true) {
-                return new $this->risIdItemResource($data);
+                return new $this->resource($data);
             }
-            return new $this->risIdItemResource($data);
+            return new $this->resource($data);
         }catch(\Exception $e) {
             return $this->failedResponse($e->getMessage(), SERVER_ERROR);
         }

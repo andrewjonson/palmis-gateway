@@ -23,7 +23,7 @@ class RsmiResource extends JsonResource
      */
     public function toArray($request)
     {
-        $issuanceDirectiveId = $this->issuanceDirective ? $this->issuanceDirective->id : null;
+        $issuanceDirectiveId = $this->issuanceDirectives ? $this->issuanceDirectives()->pluck('id') : null;
         $stdId = $this->std ? $this->std->id : null;
         return [
             'id' => hashid_encode($this->id),
@@ -31,13 +31,7 @@ class RsmiResource extends JsonResource
             'date' => $this->date,
             'po_nr' => $this->po_nr,
             'fund_cluster' => $this->fundCluster ? new FundClusterResource($this->fundCluster) : null,
-            'ris' => RsmiItemResource::collection(Inventory::whereHas('stockCard', function($query) use($issuanceDirectiveId, $stdId) {
-                $query->whereHas('issuanceDirectiveItem', function($query) use($issuanceDirectiveId) {
-                    $query->where('issuance_directive_id', $issuanceDirectiveId);
-                })->orWhereHas('stdItem', function($query) use($stdId) {
-                    $query->where('std_id', $stdId);
-                });
-            })->get())
+            'ris' => RsmiItemResource::collection($this->inventory)
         ];
     }
 }

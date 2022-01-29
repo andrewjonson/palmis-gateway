@@ -80,7 +80,7 @@ class IarController extends Controller
                     $inventory_id = hashid_decode($update['inventory_id']);
 
                     // create stock card
-                    $stockCard = $this->createStockCard($request, $iarId, $inventory_id);
+                    $stockCard = $this->createStockCard($request, $inventory_id);
                     
                     $stockCardId = $stockCard->id;
 
@@ -344,9 +344,9 @@ class IarController extends Controller
     public function getRsmis($id)
     {
         $id = hashid_decode($id);
-        $iar = Iar::whereHas('issuanceDirective', function($query) {
+        $iar = Iar::whereHas('issuanceDirectives', function($query) {
             $query->has('ris');
-        })->whereHas('std', function($query) {
+        })->where('id', $id)->orWhereHas('std', function($query) {
             $query->has('ris');
         })->where('id', $id)->get();
         return RsmiResource::collection($iar);

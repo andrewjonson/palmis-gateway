@@ -38,7 +38,8 @@ class StdController extends Controller
                 'std_number' => $std_number,
                 'authority' => $request->authority,
                 'issuance_directive_purpose_id' => hashid_decode($request->purpose_id),
-                'date' => $request->date
+                'date' => $request->date,
+                'iar_id' => hashid_decode($request->iar_id)
             ]);
             return $this->successResponse('STD Created Successfully', DATA_CREATED);
         } catch(\Exception $e) {
