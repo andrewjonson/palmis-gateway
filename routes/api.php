@@ -87,7 +87,7 @@ $router->group(['prefix' => 'api/'.config('app.version').'/sumis'], function() u
     // Stock Card
     $router->get('/stockcard/getlist', 'v1\Transactions\StockCardController@getList');
     $router->get('/stockcard/get-by-id/{id}', 'v1\Transactions\StockCardController@getStockCardById');
-    $router->get('/stockcard/get-ris-iar', 'v1\Transactions\IarRisController@getIarRis');
+    $router->get('/stockcard/get-stock-card-reference', 'v1\Transactions\StockCardReferenceController@getStockCardReference');
 
     //Issuance
     $router->group(['prefix' => 'issuance'], function() use($router) {
