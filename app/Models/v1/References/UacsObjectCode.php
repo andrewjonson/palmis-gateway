@@ -13,7 +13,6 @@ class UacsObjectCode extends BaseModel
 
     protected $table = 'rf_uacs_object_codes';
     protected $fillable = [
-        'name',
         'description',
         'code'
     ];

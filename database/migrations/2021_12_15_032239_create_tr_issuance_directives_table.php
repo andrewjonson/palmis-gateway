@@ -52,6 +52,7 @@ class CreateTrIssuanceDirectivesTable extends Migration
                 ->constrained('tr_iars')
                 ->onDelete('cascade');
             
+            $table->string('remarks');
             $table->boolean('is_released')->default(false);
             $table->bigInteger('team_id')
                     ->nullable();

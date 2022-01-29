@@ -28,11 +28,12 @@ class IssuanceDirectiveResource extends JsonResource
             'cognizant_fssu' => new FssuResource($this->fssu),
             'servicing_fpao' => new FpaoResource($this->servicingFpao),
             'date' => $this->date,
+            'remarks' => $this->remarks,
             'end_user' => new ToggleFpaoUnitResource($this->endUserFpaoUnit),
             'issuance_directive_purpose' => new IssuanceDirectivePurposeResource($this->issuancePurpose),
             'issuance_directive_condition_id' => new IssuanceDirectiveConditionResource($this->issuanceCondition),
             'item' => IssuanceDirectiveItemResource::collection($this->issuanceDirectiveItem),
-            'is_released' => $this->is_released
+            'is_released' => $this->is_released,
         ];
     }
 }

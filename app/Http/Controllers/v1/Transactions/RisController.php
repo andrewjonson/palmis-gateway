@@ -4,6 +4,7 @@ namespace App\Http\Controllers\v1\Transactions;
 
 use Illuminate\Http\Request;
 use App\Traits\ResponseTrait;
+use App\Models\v1\Transactions\Ris;
 use Illuminate\Auth\Access\AuthorizationException;
 use App\Http\Resources\v1\Transactions\RisResource;
 use App\Http\Resources\v1\Transactions\RisItemResource;
@@ -135,7 +136,27 @@ class RisController extends BaseController
         $keyword = $request->keyword;
         $rowsPerPage = $request->rowsPerPage;
         try {
-            $data = $this->modelRepository->search($keyword, $rowsPerPage);
+            $data = Ris::whereNull('std_id')->paginate($rowsPerPage);
+            if ($keyword) {
+                $data = Ris::where('ris_nr', 'like', '%'.$keyword.'%')->whereNull('std_id')->paginate($rowsPerPage);
+            }
+            
+            return $this->resource::collection($data);
+        }catch(\Exception $e) {
+            return $this->failedResponse($e->getMessage(), SERVER_ERROR);
+        }
+    }
+
+    public function getRisStd(Request $request)
+    {
+        $keyword = $request->keyword;
+        $rowsPerPage = $request->rowsPerPage;
+        try {
+            $data = Ris::whereNull('issuance_directive_id')->paginate($rowsPerPage);
+            if ($keyword) {
+                $data = Ris::where('ris_nr', 'like', '%'.$keyword.'%')->whereNull('issuance_directive_id')->paginate($rowsPerPage);
+            }
+
             return $this->resource::collection($data);
         }catch(\Exception $e) {
             return $this->failedResponse($e->getMessage(), SERVER_ERROR);
