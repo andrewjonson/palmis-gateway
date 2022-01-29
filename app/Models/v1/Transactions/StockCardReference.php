@@ -3,11 +3,13 @@
 namespace App\Models\v1\Transactions;
 
 use App\Models\BaseModel;
-use App\Models\v1\Transactions\Ris;
-use App\Models\v1\Transactions\StockCard;
+use App\Traits\ModularTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class IarRis extends BaseModel
+class StockCardReference extends BaseModel
 {
+    use ModularTrait;
+    use SoftDeletes;
 
     protected $table = 'tr_stock_card_references';
     protected $fillable = [
