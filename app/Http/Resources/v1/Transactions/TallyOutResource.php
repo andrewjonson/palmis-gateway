@@ -20,6 +20,7 @@ class TallyOutResource extends JsonResource
             'nomenclature' => new LotNumberResource($this->item->stockCard->inventory),
             'ui' => $this->item->stockCard->inventory->ammunitionNomenclature->ammunitionUom->name,
             'remarks' => $this->item->remarks,
+            'purpose' => $this->item->issuanceDirective->purpose
             // 'received_from_signatory' => '',
             // 'received_by_signatory' => '',
             // 'noted_by_signatory' => '',
