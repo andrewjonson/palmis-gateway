@@ -68,7 +68,7 @@ class IssuanceDirectiveItemController extends BaseController
                     $stockCardReference = $this->stockCardReferenceRepository
                                             ->create([
                                                 'stock_card_id' => $stockCardId,
-                                                'reference' => $data->ris_nr,
+                                                'reference' => $risData->ris_nr,
                                             ]);
                     
                     $dataInventory = $inventory->update(['quantity' => $inventory->temp_balance_qty]);
