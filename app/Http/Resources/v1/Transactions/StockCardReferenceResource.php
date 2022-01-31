@@ -21,8 +21,8 @@ class StockCardReferenceResource extends JsonResource
             'desciption' => $this->stockCard->inventory->description,
             'office' => $this->office,
             'requisition_count' => $this->stockCard->inventory->quantity,
-            'issue_quantity' => $this->stockCard->issuanceDirectiveItem->issuanceDirective->ris ? $this->stockCard->issuanceDirectiveItem->quantity : null,
-            'issue_remarks' => $this->stockCard->issuanceDirectiveItem->issuanceDirective->ris ? $this->stockCard->issuanceDirectiveItem->remarks : null
+            'issue_quantity' => $this->ris_id ? $this->stockCard->issuanceDirectiveItem->quantity : null,
+            'issue_remarks' => $this->ris_id ? $this->stockCard->issuanceDirectiveItem->remarks : null
         ];
     }
 }
