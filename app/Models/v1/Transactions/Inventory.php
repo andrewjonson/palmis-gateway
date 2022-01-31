@@ -28,8 +28,8 @@ class Inventory extends Model
         'condition_id',
         'warehouse_id',
         'is_accepted',
-        'temp_balance_qty'
-
+        'temp_balance_qty',
+        'receipt_qty'
        
     ];
     protected $table = 'tr_inventories';

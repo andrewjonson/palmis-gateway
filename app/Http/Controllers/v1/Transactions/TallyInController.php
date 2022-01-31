@@ -61,6 +61,7 @@ class TallyInController extends Controller
             $dataInventory[$x]['condition_id'] = 1;
             $dataInventory[$x]['warehouse_id'] = 1;
             $dataInventory[$x]['temp_balance_qty'] = $inventory['quantity'];
+            $dataInventory[$x]['receipt_qty'] = $inventory['quantity'];
 
             $totalAmount = 0;
             $x++;
@@ -246,7 +247,8 @@ class TallyInController extends Controller
                     'made_id' => $made_id,
                     'unit_price' => $update['unit_price'],
                     'total_amount' => $totalAmount,
-                    'temp_balance_qty' => $update['quantity']
+                    'temp_balance_qty' => $update['quantity'],
+                    'receipt_qty' => $update['quantity']
                     // 'condition_id' => $update['condition_id'],
                     // 'warehouse_id' => $update['warehouse_id']
                 ]);
@@ -291,7 +293,8 @@ class TallyInController extends Controller
                     'made_id' => hashid_decode($update['made_id']),
                     'condition_id' => 1,
                     'warehouse_id' => 1,
-                    'temp_balance_qty' => $update['quantity']
+                    'temp_balance_qty' => $update['quantity'],
+                    'receipt_qty' => $update['quantity']
                 ]);
             }
             return $this->successResponse($this->modelName.' Updated Successfully', DATA_OK);

@@ -70,7 +70,8 @@ class IssuanceDirectiveItemController extends BaseController
                                                 'stock_card_id' => $stockCardId,
                                                 'reference' => $risData->ris_nr,
                                                 'office' => $request->entity_name,
-                                                'ris_id' => $risId
+                                                'ris_id' => $risId,
+                                                'date' => $risData->updated_at
                                             ]);
                     
                     $dataInventory = $inventory->update(['quantity' => $inventory->temp_balance_qty]);
