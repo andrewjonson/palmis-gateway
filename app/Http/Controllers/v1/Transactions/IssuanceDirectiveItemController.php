@@ -9,6 +9,7 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 use App\Repositories\Interfaces\v1\Transactions\RisRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\InventoryRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\StockCardRepositoryInterface;
+use App\Repositories\Interfaces\v1\Transactions\StockCardReferenceRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\IssuanceDirectiveItemRepositoryInterface;
 
 class IssuanceDirectiveItemController extends BaseController
@@ -19,6 +20,7 @@ class IssuanceDirectiveItemController extends BaseController
         IssuanceDirectiveItemRepositoryInterface $issuanceDirectiveRepository,
         StockCardRepositoryInterface $stockCardRepository,
         InventoryRepositoryInterface $inventoryRepository,
+        StockCardReferenceRepositoryInterface $stockCardReferenceRepository,
         RisRepositoryInterface $risRepository
     )
     {
@@ -26,6 +28,7 @@ class IssuanceDirectiveItemController extends BaseController
         $this->risRepository = $risRepository;
         $this->stockCardRepository = $stockCardRepository;
         $this->inventoryRepository = $inventoryRepository;
+        $this->stockCardReferenceRepository = $stockCardReferenceRepository;
         $this->modelName = 'Issuance Directive Item';
     }
 
@@ -61,6 +64,12 @@ class IssuanceDirectiveItemController extends BaseController
                     $stockCard = $this->stockCardRepository->find($stockCardId);
                     $inventoryId = $stockCard->inventory_id;
                     $inventory = $this->inventoryRepository->find($inventoryId);
+
+                    $stockCardReference = $this->stockCardReferenceRepository
+                                            ->create([
+                                                'stock_card_id' => $stockCardId,
+                                                'reference' => $data->ris_nr,
+                                            ]);
                     
                     $dataInventory = $inventory->update(['quantity' => $inventory->temp_balance_qty]);
                 }
