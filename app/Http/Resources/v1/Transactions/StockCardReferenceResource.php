@@ -19,6 +19,7 @@ class StockCardReferenceResource extends JsonResource
             'reference' => $this->reference,
             'uom' => $this->stockCard->inventory->ammunitionNomenclature->ammunitionUom->name,
             'desciption' => $this->stockCard->inventory->description,
+            'office' => $this->office,
             'requisition_count' => $this->stockCard->inventory->quantity,
             'issue_quantity' => $this->stockCard->issuanceDirectiveItem->issuanceDirective->ris ? $this->stockCard->issuanceDirectiveItem->quantity : null,
             'issue_remarks' => $this->stockCard->issuanceDirectiveItem->issuanceDirective->ris ? $this->stockCard->issuanceDirectiveItem->remarks : null

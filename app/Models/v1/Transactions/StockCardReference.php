@@ -14,7 +14,8 @@ class StockCardReference extends BaseModel
     protected $table = 'tr_stock_card_references';
     protected $fillable = [
         'reference',
-        'stock_card_id'
+        'stock_card_id',
+        'office'
     ];
 
     public function stockCard()
