@@ -20,6 +20,10 @@ class CreateTrStockCardReferencesTable extends Migration
                     ->onDelete('cascade');
             $table->string('reference');
             $table->string('office');
+            $table->bigInteger('iar_id')
+                    ->nullable();
+            $table->bigInteger('ris_id')
+                    ->nullable();
             $table->bigInteger('team_id')
                     ->nullable();
             $table->bigInteger('created_by')

@@ -88,7 +88,8 @@ class IarController extends Controller
                                 ->create([
                                     'stock_card_id' => $stockCardId,
                                     'reference' => $iar->iar_nr,
-                                    'office' => $iar->entity_name
+                                    'office' => $iar->entity_name,
+                                    'iar_id' => $iarId
                                 ]);
 
                     $stockCardReport = $this->createStockCardReport($request, $stockCardId);
