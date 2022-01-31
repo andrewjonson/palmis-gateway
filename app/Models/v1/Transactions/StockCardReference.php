@@ -17,7 +17,8 @@ class StockCardReference extends BaseModel
         'stock_card_id',
         'office',
         'iar_id',
-        'ris_id'
+        'ris_id',
+        'date'
     ];
 
     public function stockCard()
