@@ -27,6 +27,7 @@ class CreateTrInventoriesTable extends Migration
                 ->onDelete('cascade');
 
             $table->string('lot_number');
+            $table->integer('receipt_qty');
             $table->integer('quantity');
             $table->date('date_manufactured');
             $table->date('date_accepted');

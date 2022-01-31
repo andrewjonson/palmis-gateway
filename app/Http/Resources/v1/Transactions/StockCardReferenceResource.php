@@ -16,11 +16,13 @@ class StockCardReferenceResource extends JsonResource
     {
         return [
             'id' => hashid_encode($this->id),
+            'date' => $this->date,
             'reference' => $this->reference,
             'uom' => $this->stockCard->inventory->ammunitionNomenclature->ammunitionUom->name,
             'desciption' => $this->stockCard->inventory->description,
             'office' => $this->office,
-            'requisition_count' => $this->stockCard->inventory->quantity,
+            'receipt_qty' => $this->stockCard->inventory->receipt_qty,
+            'requisition_count' => $this->iar_id != null ? $this->stockCard->inventory->quantity : null,
             'issue_quantity' => $this->ris_id ? $this->stockCard->issuanceDirectiveItem->quantity : null,
             'issue_remarks' => $this->ris_id ? $this->stockCard->issuanceDirectiveItem->remarks : null
         ];
