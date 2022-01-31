@@ -38,11 +38,6 @@ class IssuanceDirectiveItemController extends BaseController
     public function updateIdItem(Request $request)
     {
         $risId = hashid_decode($request->ris_id);
-        $risData = $this->risRepository->update([
-            'entity_name' => $request->entity_name,
-            'fund_cluster_id' => hashid_decode($request->fund_cluster_id),
-            'responsibility_center_code_id' => hashid_decode($request->responsibility_center_code_id)
-        ], $risId);
         
         try {
             $updateItem = $request->issuance_directive_item;
