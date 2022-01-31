@@ -27,6 +27,8 @@ class CreateTrStockCardReferencesTable extends Migration
             $table->date('date');
             $table->integer('balance')
                    ->nullable();
+            $table->integer('quantity')
+                   ->nullable();
             $table->bigInteger('team_id')
                     ->nullable();
             $table->bigInteger('created_by')
