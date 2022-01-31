@@ -90,7 +90,7 @@ class IarController extends Controller
                                     'reference' => $iar->iar_nr,
                                     'office' => $iar->entity_name,
                                     'iar_id' => $iarId,
-                                    'date' => $iar->data
+                                    'date' => $iar->date
                                 ]);
 
                     $stockCardReport = $this->createStockCardReport($request, $stockCardId);
