@@ -128,4 +128,9 @@ $router->group(['prefix' => 'api/'.config('app.version').'/sumis'], function() u
     $router->delete('/delete-std-item/{stdItemId}', 'v1\Transactions\StdItemController@deleteStdItem');
 
     $router->get('/get-rsmis/{id}', 'v1\Transactions\IarController@getRsmis');
+
+    //DDA
+    $router->post('/create-dda', 'v1\Transactions\DdaController@createDda');
+    $router->get('/get-dda', 'v1\Transactions\DdaController@getDda');
+    $router->get('/get-dda-by-id/{id}', 'v1\Transactions\DdaController@getDdaById');
 });
