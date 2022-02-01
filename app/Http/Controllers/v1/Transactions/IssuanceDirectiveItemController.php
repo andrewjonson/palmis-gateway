@@ -7,6 +7,7 @@ use App\Traits\ResponseTrait;
 use Illuminate\Auth\Access\AuthorizationException;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use App\Repositories\Interfaces\v1\Transactions\RisRepositoryInterface;
+use App\Repositories\Interfaces\v1\Transactions\StdItemRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\InventoryRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\StockCardRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\StockCardReferenceRepositoryInterface;
@@ -21,6 +22,7 @@ class IssuanceDirectiveItemController extends BaseController
         StockCardRepositoryInterface $stockCardRepository,
         InventoryRepositoryInterface $inventoryRepository,
         StockCardReferenceRepositoryInterface $stockCardReferenceRepository,
+        StdItemRepositoryInterface $stditemRepository,
         RisRepositoryInterface $risRepository
     )
     {
@@ -29,6 +31,7 @@ class IssuanceDirectiveItemController extends BaseController
         $this->stockCardRepository = $stockCardRepository;
         $this->inventoryRepository = $inventoryRepository;
         $this->stockCardReferenceRepository = $stockCardReferenceRepository;
+        $this->stditemRepository = $stditemRepository;
         $this->modelName = 'Issuance Directive Item';
     }
 
@@ -41,23 +44,29 @@ class IssuanceDirectiveItemController extends BaseController
     public function updateIdItem(Request $request)
     {
         $risId = hashid_decode($request->ris_id);
-        $risData = $this->risRepository->update([
-            'entity_name' => $request->entity_name,
-            'fund_cluster_id' => hashid_decode($request->fund_cluster_id),
-            'responsibility_center_code_id' => hashid_decode($request->responsibility_center_code_id)
-        ], $risId);
+        // $risData = $this->risRepository->update([
+        //     'entity_name' => $request->entity_name,
+        //     'fund_cluster_id' => hashid_decode($request->fund_cluster_id),
+        //     'responsibility_center_code_id' => hashid_decode($request->responsibility_center_code_id)
+        // ], $risId);
+
+        $risData = $this->risRepository->find($risId);
         
         try {
             $updateItem = $request->issuance_directive_item;
-
+            // return $updateItem;
             // for bulk update of inventory
                 foreach($updateItem as $update) {
                     $id = hashid_decode($update['id']);
                     $data = $this->modelRepository->find($id);
-                    
+                    if ($request->is_std) {
+                        $data = $this->stditemRepository->find($id);
+                    }
+
                     if (!$data) {
                         throw new AuthorizationException;
                     }
+
                     $data->update(['remarks' => $update['remarks']]);
 
                     $stockCardId = $data->stock_card_id;
@@ -69,7 +78,7 @@ class IssuanceDirectiveItemController extends BaseController
                                             ->create([
                                                 'stock_card_id' => $stockCardId,
                                                 'reference' => $risData->ris_nr,
-                                                'office' => $request->entity_name,
+                                                'office' => $data->std ? $data->std->iar->entity_name : $data->issuanceDirective->iar->entity_name,
                                                 'ris_id' => $risId,
                                                 'date' => $risData->updated_at,
                                                 'balance' => $inventory->temp_balance_qty,
