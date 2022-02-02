@@ -8,6 +8,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Laravel\Lumen\Routing\Controller as BaseController;
 use App\Repositories\Interfaces\v1\Transactions\RisRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\StdItemRepositoryInterface;
+use App\Repositories\Interfaces\v1\Transactions\TallyOutRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\InventoryRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\StockCardRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\StockCardReferenceRepositoryInterface;
@@ -23,6 +24,7 @@ class IssuanceDirectiveItemController extends BaseController
         InventoryRepositoryInterface $inventoryRepository,
         StockCardReferenceRepositoryInterface $stockCardReferenceRepository,
         StdItemRepositoryInterface $stditemRepository,
+        TallyOutRepositoryInterface $tallyoutRepository,
         RisRepositoryInterface $risRepository
     )
     {
@@ -32,6 +34,7 @@ class IssuanceDirectiveItemController extends BaseController
         $this->inventoryRepository = $inventoryRepository;
         $this->stockCardReferenceRepository = $stockCardReferenceRepository;
         $this->stditemRepository = $stditemRepository;
+        $this->tallyoutRepository = $tallyoutRepository;
         $this->modelName = 'Issuance Directive Item';
     }
 
@@ -73,6 +76,13 @@ class IssuanceDirectiveItemController extends BaseController
                     $stockCard = $this->stockCardRepository->find($stockCardId);
                     $inventoryId = $stockCard->inventory_id;
                     $inventory = $this->inventoryRepository->find($inventoryId);
+
+                    $tallyout = $this->tallyoutRepository
+                                ->create([
+                                    'ris_id' => $risId,
+                                    'issuance_directive_item_id' => hashid_decode($update['id']),
+                                    'unservisable' => false
+                                ]);
 
                     $stockCardReference = $this->stockCardReferenceRepository
                                             ->create([
