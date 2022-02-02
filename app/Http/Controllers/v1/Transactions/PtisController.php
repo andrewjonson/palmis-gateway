@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\v1\Transactions\Ptis;
 use App\Http\Resources\v1\Transactions\PtisResource;
 use App\Repositories\Interfaces\v1\Transactions\PtisRepositoryInterface;
+use App\Repositories\Interfaces\v1\Transactions\PtisItemsRepositoryInterface;
 
 class PtisController extends Controller
 {
@@ -15,7 +16,7 @@ class PtisController extends Controller
 
     public function __construct(
         PtisRepositoryInterface $ptisRepository, 
-        PtisItemRepositoryInterface $ptisitemRepository,
+        PtisItemsRepositoryInterface $ptisitemRepository,
         Request $request
     )
     {
@@ -41,6 +42,7 @@ class PtisController extends Controller
             $ptis = $this->modelRepository->create([
                 'to' => $request->to,
                 'from' => $request->from,
+                'voucher_nr' => $request->voucher_nr,
                 'turn_in_slip_nr' => $ptisNr,
                 'basis' => $request->basis,
                 'remarks' => $request->remarks
@@ -48,7 +50,7 @@ class PtisController extends Controller
 
             foreach ($items as $item) {
                 $ptis_item = $this->ptisitemRepository->create([
-                    'pts_id' => $ptis->id,
+                    'ptis_id' => $ptis->id,
                     'lot_nr' => $item['lot_nr'],
                     'quantity' => $item['quantity'],
                     'remarks' => $item['remarks']
