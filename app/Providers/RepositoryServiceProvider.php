@@ -16,6 +16,7 @@ use App\Repositories\Eloquent\v1\References\OfficeRepository;
 use App\Repositories\Eloquent\v1\References\RegionRepository;
 use App\Repositories\Eloquent\v1\References\SupplyRepository;
 use App\Repositories\Eloquent\v1\Reports\IarReportRepository;
+use App\Repositories\Eloquent\v1\Transactions\PtisRepository;
 use App\Repositories\Eloquent\v1\References\CountryRepository;
 use App\Repositories\Eloquent\v1\References\EndUserRepository;
 use App\Repositories\Eloquent\v1\Dashboard\DashboardRepository;
@@ -37,6 +38,7 @@ use App\Repositories\Eloquent\v1\References\FundClusterRepository;
 use App\Repositories\Eloquent\v1\References\SignatoryCoRepository;
 use App\Repositories\Eloquent\v1\Transactions\DdaPackedRepository;
 use App\Repositories\Eloquent\v1\Transactions\InventoryRepository;
+use App\Repositories\Eloquent\v1\Transactions\PtisItemsRepository;
 use App\Repositories\Eloquent\v1\Transactions\StockCardRepository;
 use App\Repositories\Eloquent\v1\References\ManufacturerRepository;
 use App\Repositories\Eloquent\v1\References\NomenclatureRepository;
@@ -66,6 +68,7 @@ use App\Repositories\Interfaces\v1\References\OfficeRepositoryInterface;
 use App\Repositories\Interfaces\v1\References\RegionRepositoryInterface;
 use App\Repositories\Interfaces\v1\References\SupplyRepositoryInterface;
 use App\Repositories\Interfaces\v1\Reports\IarReportRepositoryInterface;
+use App\Repositories\Interfaces\v1\Transactions\PtisRepositoryInterface;
 use App\Repositories\Eloquent\v1\References\AmmunitionCategoryRepository;
 use App\Repositories\Eloquent\v1\References\ResponsibilityCodeRepository;
 use App\Repositories\Interfaces\v1\References\CountryRepositoryInterface;
@@ -207,5 +210,9 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(DdaPackedRepositoryInterface::class, DdaPackedRepository::class);
         $this->app->bind(DdaNrDefectsRepositoryInterface::class, DdaNrDefectsRepository::class);
         $this->app->bind(DdaNrDefectivesRepositoryInterface::class, DdaNrDefectivesRepository::class);
+
+        //PTIS
+        $this->app->bind(PtisRepositoryInterface::class, PtisRepository::class);
+        $this->app->bind(PtisItemRepositoryInterface::class, PtisItemsRepository::class);
     }
 }
