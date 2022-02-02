@@ -4,6 +4,7 @@ namespace App\Models\v1\Transactions;
 
 use App\Models\BaseModel;
 use App\Traits\ModularTrait;
+use App\Models\v1\Transactions\PtisItems;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Ptis extends BaseModel
@@ -20,4 +21,9 @@ class Ptis extends BaseModel
         'basis',
         'remarks'
     ];
+
+    public function items()
+    {
+        return $this->hasMany(PtisItems::class, 'ptis_id', 'id');
+    }
 }

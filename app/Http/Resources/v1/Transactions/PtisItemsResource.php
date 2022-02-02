@@ -15,7 +15,11 @@ class PtisItemsResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => hashid_encode($this->id)
+            'id' => hashid_encode($this->id),
+            'lot_nr' => $this->lot_nr,
+            'quantity' => $this->quantity,
+            'eom' => $this->inventory->ammunitionNomenclature->ammunitionUom->name,
+            'remarks' => $this->remarks
         ];
     }
 }
