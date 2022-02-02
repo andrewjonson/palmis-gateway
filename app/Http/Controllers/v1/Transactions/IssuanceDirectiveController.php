@@ -210,7 +210,9 @@ class IssuanceDirectiveController extends BaseController
             'cognizant_fssu_id' => hashid_decode($request->cognizant_fssu_id),
             'servicing_fpao_id' => hashid_decode($request->servicing_fpao_id),
             'issuance_directive_purpose_id' => hashid_decode($request->issuance_directive_purpose_id),
-            'issuance_directive_condition_id' => hashid_decode($request->issuance_directive_condition_id)
+            'issuance_directive_condition_id' => hashid_decode($request->issuance_directive_condition_id),
+            'iar_id' => hashid_decode($request->iar_id),
+            'remarks' => $request->remarks
         ]);
 
         try {
@@ -224,7 +226,9 @@ class IssuanceDirectiveController extends BaseController
                 'date',
                 'end_user_id',
                 'issuance_directive_purpose_id',
-                'issuance_directive_condition_id'
+                'issuance_directive_condition_id',
+                'iar_id',
+                'remarks'
             ]);
 
             $result = $this->modelRepository->create($dataId);

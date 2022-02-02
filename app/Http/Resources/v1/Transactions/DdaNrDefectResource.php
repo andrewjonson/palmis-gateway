@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\v1\References;
+namespace App\Http\Resources\v1\Transactions;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UacsObjectCodeResource extends JsonResource
+class DdaNrDefectResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,8 +16,9 @@ class UacsObjectCodeResource extends JsonResource
     {
         return [
             'id' => hashid_encode($this->id),
-            'code' => $this->code,
-            'description' => $this->description,
+            'crit' => $this->crit,
+            'maj' => $this->maj,
+            'min' => $this->min
         ];
     }
 }

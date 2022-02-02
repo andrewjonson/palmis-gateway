@@ -3,11 +3,13 @@
 namespace App\Models\v1\Transactions;
 
 use App\Models\BaseModel;
+use App\Models\v1\Transactions\Std;
 use App\Models\v1\References\Office;
 use App\Models\v1\Transactions\TallyIn;
 use App\Models\v1\References\FundCluster;
 use App\Models\v1\Transactions\Inventory;
 use App\Models\v1\References\ResponsibilityCode;
+use App\Models\v1\Transactions\IssuanceDirective;
 
 class Iar extends BaseModel
 {
@@ -50,5 +52,15 @@ class Iar extends BaseModel
     public function inventory()
     {
         return $this->hasMany(Inventory::class, 'tally_in_id', 'tally_in_id');
+    }
+
+    public function issuanceDirectives()
+    {
+        return $this->hasMany(IssuanceDirective::class, 'iar_id');
+    }
+
+    public function std()
+    {
+        return $this->hasOne(Std::class, 'iar_id');
     }
 }

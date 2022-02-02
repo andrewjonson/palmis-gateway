@@ -4,6 +4,7 @@ namespace App\Models\v1\Transactions;
 
 use App\Models\BaseModel;
 use App\Traits\ModularTrait;
+use App\Models\v1\Transactions\Ris;
 use App\Models\v1\Transactions\StdItem;
 use App\Models\v1\Transactions\Inventory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -18,7 +19,9 @@ class Std extends BaseModel
         'std_number', 
         'authority', 
         'issuance_directive_purpose_id',
-        'date'
+        'date',
+        'iar_id',
+        'remarks'
     ];
     protected $table = 'tr_stds';
 
@@ -30,5 +33,15 @@ class Std extends BaseModel
     public function issuanceDirectivePurpose()
     {
         return $this->belongsTo(IssuanceDirectivePurpose::class, 'issuance_directive_purpose_id');
+    }
+
+    public function ris()
+    {
+        return $this->hasMany(Ris::class, 'std_id');
+    }
+
+    public function iar()
+    {
+        return $this->belongsTo(Iar::class, 'iar_id');
     }
 }

@@ -14,6 +14,7 @@ use App\Models\v1\Transactions\StockCard;
 use Illuminate\Auth\Access\AuthorizationException;
 use App\Http\Resources\v1\Transactions\IarResource;
 use App\Http\Resources\v1\Transactions\RpciResource;
+use App\Http\Resources\v1\Transactions\RsmiResource;
 use App\Http\Resources\v1\Transactions\InventoryResource;
 use App\Http\Resources\v1\Transactions\TallyInInventoryResource;
 use App\Repositories\Interfaces\v1\Transactions\IarRepositoryInterface;
@@ -79,7 +80,7 @@ class IarController extends Controller
                     $inventory_id = hashid_decode($update['inventory_id']);
 
                     // create stock card
-                    $stockCard = $this->createStockCard($request, $iarId, $inventory_id);
+                    $stockCard = $this->createStockCard($request, $inventory_id);
                     
                     $stockCardId = $stockCard->id;
 
@@ -341,5 +342,16 @@ class IarController extends Controller
         } catch(\Exception $e) {
             return $this->failedResponse($e->getMessage(), SERVER_ERROR);
         }
+    }
+
+    public function getRsmis($id)
+    {
+        $id = hashid_decode($id);
+        $iar = Iar::whereHas('issuanceDirectives', function($query) {
+            $query->has('ris');
+        })->where('id', $id)->orWhereHas('std', function($query) {
+            $query->has('ris');
+        })->where('id', $id)->get();
+        return RsmiResource::collection($iar);
     }
 }

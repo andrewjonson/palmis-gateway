@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTrRisTable extends Migration
+class CreateTrPtisTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,14 @@ class CreateTrRisTable extends Migration
      */
     public function up()
     {
-        Schema::create('tr_ris', function (Blueprint $table) {
+        Schema::create('tr_ptis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('issuance_directive_id')
-                ->nullable()
-                ->constrained('tr_issuance_directives')
-                ->onDelete('cascade');
-            $table->foreignId('std_id')
-                ->nullable()
-                ->constrained('tr_stds')
-                ->onDelete('cascade');
-            $table->string('ris_nr');
-            $table->boolean('status')->default(false);                                                                                                                 
+            $table->string('to');
+            $table->string('from');
+            $table->string('turn_in_slip_nr');
+            $table->string('voucher_nr');
+            $table->text('basis');
+            $table->text('remarks');
             $table->bigInteger('team_id')
                     ->nullable();
             $table->bigInteger('created_by')
@@ -46,6 +42,6 @@ class CreateTrRisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tr_ris');
+        Schema::dropIfExists('tr_ptis');
     }
 }

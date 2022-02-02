@@ -25,6 +25,7 @@ use Database\Seeders\v1\References\SignatoryCoTableSeeder;
 use Database\Seeders\v1\References\ManufacturerTableSeeder;
 use Database\Seeders\v1\References\ServicingFpaoTableSeeder;
 use Database\Seeders\v1\References\ClassificationTableSeeder;
+use Database\Seeders\v1\References\UacsObjectCodeTableSeeder;
 use Database\Seeders\v1\References\AmmunitionDetailsTableSeeder;
 use Database\Seeders\v1\References\UnitOfMeasurementTableSeeder;
 use Database\Seeders\v1\References\AmmunitionArticlesTableSeeder;
@@ -67,6 +68,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AmmunitionHeadStumpMarkingsTableSeeder::class);
         $this->call(AmmunitionArticlesTableSeeder::class);
         $this->call(FpaoUnitTableSeeder::class);
+        $this->call(UacsObjectCodeTableSeeder::class);
         $this->call(AmmunitionNomenclatureTableSeeder::class);
         $this->call(EndUserTableSeeder::class);
         $this->call(DocSettingTableSeeder::class);

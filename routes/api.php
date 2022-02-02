@@ -112,6 +112,7 @@ $router->group(['prefix' => 'api/'.config('app.version').'/sumis'], function() u
     // RIS
     $router->post('/ris/create/{id}', 'v1\Transactions\RisController@createRis');
     $router->get('/ris/get-list', 'v1\Transactions\RisController@getRisList');
+    $router->get('/ris/get-std', 'v1\Transactions\RisController@getRisStd');
     $router->get('/ris/search/{id}', 'v1\Transactions\RisController@getRisById');
 
     //Issuance Directive Item
@@ -125,4 +126,14 @@ $router->group(['prefix' => 'api/'.config('app.version').'/sumis'], function() u
     $router->post('/create-std-item/{stdId}', 'v1\Transactions\StdItemController@createStdItem');
     $router->get('/get-std-by-id/{stdId}', 'v1\Transactions\StdController@getStdById');
     $router->delete('/delete-std-item/{stdItemId}', 'v1\Transactions\StdItemController@deleteStdItem');
+
+    $router->get('/get-rsmis/{id}', 'v1\Transactions\IarController@getRsmis');
+
+    //DDA
+    $router->post('/create-dda', 'v1\Transactions\DdaController@createDda');
+    $router->get('/get-dda', 'v1\Transactions\DdaController@getDda');
+    $router->get('/get-dda-by-id/{id}', 'v1\Transactions\DdaController@getDdaById');
+
+    //PTIS
+    $router->post('/create-ptis', 'v1\Transactions\PtisController@createPtis');
 });

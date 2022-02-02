@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTrStdsTable extends Migration
+class CreateTrDdaPackedsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,15 @@ class CreateTrStdsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tr_stds', function (Blueprint $table) {
+        Schema::create('tr_dda_packeds', function (Blueprint $table) {
             $table->id();
-            $table->string('std_number');
-            $table->string('authority');
-            $table->foreignId('issuance_directive_purpose_id')->constrained('rf_issuance_directive_purposes');
-            $table->date('date');
+            $table->string('condition_ammunition_item')->nullable();
+            $table->enum('packed_type', [
+                'Outer Packed',
+                'Inner Packed',
+                'Complete Packed'
+            ])->nullable();
+            $table->foreignId('dda_id')->nullable()->constrained('tr_ddas');
             $table->bigInteger('team_id')
                     ->nullable();
             $table->bigInteger('created_by')
@@ -40,6 +43,6 @@ class CreateTrStdsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tr_stds');
+        Schema::dropIfExists('tr_dda_packeds');
     }
 }

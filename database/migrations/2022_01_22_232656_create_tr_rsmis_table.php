@@ -15,7 +15,6 @@ class CreateTrRsmisTable extends Migration
     {
         Schema::create('tr_rsmis', function (Blueprint $table) {
             $table->id();
-            $table->string('serial_number');
             $table->date('date');
             $table->foreignId('ris_id')->constrained('tr_ris');
             $table->bigInteger('team_id')

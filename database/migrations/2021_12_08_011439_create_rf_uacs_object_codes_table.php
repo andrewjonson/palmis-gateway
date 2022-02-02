@@ -15,9 +15,8 @@ class CreateRfUacsObjectCodesTable extends Migration
     {
         Schema::create('rf_uacs_object_codes', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('description');
             $table->string('code');
+            $table->string('description');
             $table->bigInteger('team_id')
                     ->nullable();
             $table->bigInteger('created_by')

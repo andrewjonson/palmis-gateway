@@ -4,6 +4,7 @@ namespace App\Http\Controllers\v1\Transactions;
 
 use Illuminate\Http\Request;
 use App\Traits\ResponseTrait;
+use App\Models\v1\Transactions\Ris;
 use Illuminate\Auth\Access\AuthorizationException;
 use App\Http\Resources\v1\Transactions\RisResource;
 use App\Http\Resources\v1\Transactions\RisItemResource;
@@ -48,9 +49,7 @@ class RisController extends BaseController
     {
         $id = hashid_decode($id);
         $data = $this->modelRepository->update([
-            'entity_name' => $request->entity_name,
-            'fund_cluster_id' => hashid_decode($request->fund_cluster_id),
-            'responsibility_center_code_id' => hashid_decode($request->responsibility_center_code_id)
+            'status' => true,
         ], $id);
 
         $issuanceDirective = $this->issuanceDirective->find($data->issuance_directive_id);
@@ -79,7 +78,6 @@ class RisController extends BaseController
             
             $dataInventory = $inventory->update(['quantity' => $total]);
         }
-        $ris = $data->update(['status' => true]);
         $issuance_directive = $issuanceDirective->update(['is_released' => true]);
         return $this->successResponse('RIS Created Successfully', DATA_OK);
     }
@@ -144,8 +142,28 @@ class RisController extends BaseController
         $keyword = $request->keyword;
         $rowsPerPage = $request->rowsPerPage;
         try {
-            $data = $this->modelRepository->search($keyword, $rowsPerPage);
-            return $this->risIdItemResource::collection($data);
+            $data = Ris::whereNull('std_id')->paginate($rowsPerPage);
+            if ($keyword) {
+                $data = Ris::where('ris_nr', 'like', '%'.$keyword.'%')->whereNull('std_id')->paginate($rowsPerPage);
+            }
+            
+            return $this->resource::collection($data);
+        }catch(\Exception $e) {
+            return $this->failedResponse($e->getMessage(), SERVER_ERROR);
+        }
+    }
+
+    public function getRisStd(Request $request)
+    {
+        $keyword = $request->keyword;
+        $rowsPerPage = $request->rowsPerPage;
+        try {
+            $data = Ris::whereNull('issuance_directive_id')->paginate($rowsPerPage);
+            if ($keyword) {
+                $data = Ris::where('ris_nr', 'like', '%'.$keyword.'%')->whereNull('issuance_directive_id')->paginate($rowsPerPage);
+            }
+
+            return $this->resource::collection($data);
         }catch(\Exception $e) {
             return $this->failedResponse($e->getMessage(), SERVER_ERROR);
         }
@@ -170,9 +188,9 @@ class RisController extends BaseController
             $checkStatus = $data->status;
 
             if($checkStatus == true) {
-                return new $this->risIdItemResource($data);
+                return new $this->resource($data);
             }
-            return new $this->risIdItemResource($data);
+            return new $this->resource($data);
         }catch(\Exception $e) {
             return $this->failedResponse($e->getMessage(), SERVER_ERROR);
         }

@@ -4,6 +4,7 @@ namespace App\Models\v1\Transactions;
 
 use App\Models\BaseModel;
 use App\Models\v1\References\Signatory;
+use App\Models\v1\Transactions\StdItem;
 use App\Models\v1\Transactions\Inventory;
 use App\Models\v1\Transactions\StockCardReference;
 use App\Models\v1\Transactions\IssuanceDirectiveItem;
@@ -26,6 +27,11 @@ class StockCard extends BaseModel
     public function stockCardReference()
     {
         return $this->hasMany(StockCardReference::class, 'stock_card_id', 'id');
+    }
+
+    public function stdItem()
+    {
+        return $this->hasOne(StdItem::class, 'stock_card_id');
     }
 
     // public function receivedFromSignatory()

@@ -3,6 +3,7 @@
 namespace App\Models\v1\Transactions;
 
 use App\Models\BaseModel;
+use App\Models\v1\Transactions\Std;
 use App\Models\v1\References\FundCluster;
 use App\Models\v1\References\ResponsibilityCode;
 use App\Models\v1\Transactions\IssuanceDirective;
@@ -11,12 +12,10 @@ class Ris extends BaseModel
 {
     protected $table = 'tr_ris';
     protected $fillable = [
-        'issuance_directive_id', 
+        'issuance_directive_id',
+        'std_id',
         'ris_nr',
         'status',
-        'responsibility_center_code_id',
-        'entity_name',
-        'fund_cluster_id'
     ];
 
     public function issuanceDirective()
@@ -32,5 +31,10 @@ class Ris extends BaseModel
     public function fundCluster()
     {
         return $this->belongsTo(FundCluster::class, 'fund_cluster_id');
+    }
+
+    public function std()
+    {
+        return $this->belongsTo(Std::class, 'std_id');
     }
 }

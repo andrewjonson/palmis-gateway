@@ -22,6 +22,7 @@ class StdResource extends JsonResource
             'authority' => $this->authority,
             'purpose' => new IssuanceDirectivePurposeResource($this->issuanceDirectivePurpose),
             'date' => $this->date,
+            'remarks' => $this->remarks,
             'items' => StdItemResource::collection($this->stdItems)
         ];
     }

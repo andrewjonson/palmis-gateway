@@ -6,6 +6,7 @@ use App\Models\BaseModel;
 use App\Traits\ModularTrait;
 use App\Models\v1\References\Fpao;
 use App\Models\v1\References\Fssu;
+use App\Models\v1\Transactions\Std;
 use App\Models\v1\Transactions\StockCard;
 
 class StdItem extends BaseModel
@@ -46,5 +47,10 @@ class StdItem extends BaseModel
     public function receivingFssu()
     {
         return $this->belongsTo(Fssu::class, 'receiving_fssu_id');
+    }
+
+    public function std()
+    {
+        return $this->belongsTo(Std::class, 'std_id');
     }
 }

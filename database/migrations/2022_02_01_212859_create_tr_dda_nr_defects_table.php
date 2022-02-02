@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTrRisTable extends Migration
+class CreateTrDdaNrDefectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,12 @@ class CreateTrRisTable extends Migration
      */
     public function up()
     {
-        Schema::create('tr_ris', function (Blueprint $table) {
+        Schema::create('tr_dda_nr_defects', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('issuance_directive_id')
-                ->nullable()
-                ->constrained('tr_issuance_directives')
-                ->onDelete('cascade');
-            $table->foreignId('std_id')
-                ->nullable()
-                ->constrained('tr_stds')
-                ->onDelete('cascade');
-            $table->string('ris_nr');
-            $table->boolean('status')->default(false);                                                                                                                 
+            $table->integer('crit')->nullable();
+            $table->integer('maj')->nullable();
+            $table->integer('min')->nullable();
+            $table->foreignId('dda_packed_id')->nullable()->constrained('tr_dda_packeds');
             $table->bigInteger('team_id')
                     ->nullable();
             $table->bigInteger('created_by')
@@ -46,6 +40,6 @@ class CreateTrRisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tr_ris');
+        Schema::dropIfExists('tr_dda_nr_defects');
     }
 }
