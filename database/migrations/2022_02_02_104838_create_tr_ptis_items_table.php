@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class TrPtisItemsTable extends Migration
+class CreateTrPtisItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class TrPtisItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('{{ table }}', function (Blueprint $table) {
+        Schema::create('tr_ptis_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('ptis_id')
                     ->constrained('tr_ptis')
@@ -42,6 +42,6 @@ class TrPtisItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('{{ table }}');
+        Schema::dropIfExists('tr_ptis_items');
     }
 }

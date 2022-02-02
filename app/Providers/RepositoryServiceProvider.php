@@ -97,6 +97,7 @@ use App\Repositories\Interfaces\v1\References\FundClusterRepositoryInterface;
 use App\Repositories\Interfaces\v1\References\SignatoryCoRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\DdaPackedRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\InventoryRepositoryInterface;
+use App\Repositories\Interfaces\v1\Transactions\PtisItemsRepositoryInterface;
 use App\Repositories\Interfaces\v1\Transactions\StockCardRepositoryInterface;
 use App\Repositories\Eloquent\v1\Transactions\IssuanceDirectiveItemRepository;
 use App\Repositories\Interfaces\v1\References\ManufacturerRepositoryInterface;
@@ -213,6 +214,6 @@ class RepositoryServiceProvider extends ServiceProvider
 
         //PTIS
         $this->app->bind(PtisRepositoryInterface::class, PtisRepository::class);
-        $this->app->bind(PtisItemRepositoryInterface::class, PtisItemsRepository::class);
+        $this->app->bind(PtisItemsRepositoryInterface::class, PtisItemsRepository::class);
     }
 }
