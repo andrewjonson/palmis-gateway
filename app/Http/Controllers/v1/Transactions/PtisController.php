@@ -61,4 +61,11 @@ class PtisController extends Controller
             return $this->failedResponse($e->getMessage(), SERVER_ERROR);
         }
     }
+
+    public function getPTISbyId(Request $request, $id)
+    {
+        $id = hashid_decode($id);
+        $ptis = $this->modelRepository->find($id);
+        return new PtisResource($ptis);
+    }
 }

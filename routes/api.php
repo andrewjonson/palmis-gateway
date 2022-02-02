@@ -135,5 +135,7 @@ $router->group(['prefix' => 'api/'.config('app.version').'/sumis'], function() u
     $router->get('/get-dda-by-id/{id}', 'v1\Transactions\DdaController@getDdaById');
 
     //PTIS
+    resource('/ptis', 'Transactions\PtisController', $router);
     $router->post('/create-ptis', 'v1\Transactions\PtisController@createPtis');
+    $router->get('/get-ptis-by-id/{id}', 'v1\Transactions\PtisController@getPtisById');
 });
